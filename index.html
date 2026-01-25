@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BUSINESS PLAN | L'Elite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/000000/books.png">
+    <!-- Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content="THE BUSINESS PLAN - Pack de 7 Ebooks">
+    <meta property="og:description" content="Ne travaillez plus pour l'argent. Faites en sorte que l'argent travaille pour vous.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    <meta property="og:url" content="https://votrepseudo.github.io/business-plan-ebook">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark-gold: #AA891A;
+            --black: #050505;
+        }
+        body { 
+            background-color: var(--black); 
+            color: white; 
+            overflow-x: hidden;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        .glass { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+        }
+        .glow-gold { 
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15); 
+        }
+        .text-gradient { 
+            background: linear-gradient(to right, #D4AF37, #FFF5D6, #AA891A); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @keyframes float { 
+            0% { transform: translateY(0px); } 
+            50% { transform: translateY(-20px); } 
+            100% { transform: translateY(0px); } 
+        }
+        .floating { 
+            animation: float 4s ease-in-out infinite; 
+        }
+        .testimonial-bg { 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%); 
+        }
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Notification Social Proof -->
+    <div id="notif" class="fixed bottom-5 left-5 glass p-4 rounded-xl z-50 translate-y-40 transition-all duration-500 flex items-center gap-4">
+        <div class="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold">JS</div>
+        <p class="text-sm">Jean-Sébastien vient d'acheter le pack <br><span class="font-bold text-yellow-500">il y a 2 min</span></p>
+    </div>
+
+    <!-- Header/Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-16">
+        <div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-yellow-900/20 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-yellow-700/10 rounded-full blur-[120px]"></div>
+
+        <div class="text-center z-10 max-w-6xl mx-auto">
+            <div class="inline-flex items-center gap-2 bg-yellow-900/30 text-yellow-400 px-4 py-2 rounded-full text-sm mb-8 animate__animated animate__fadeIn">
+                <i class="fas fa-fire"></i>
+                <span>OFFRE SPÉCIALE LIMITÉE</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter animate__animated animate__fadeInDown">
+                THE <span class="text-gradient underline">BUSINESS</span> PLAN
+            </h1>
+            
+            <p class="text-gray-300 text-lg md:text-2xl max-w-3xl mx-auto mb-10 animate__animated animate__fadeIn animate__delay-1s">
+                Ne travaillez plus pour l'argent. Faites en sorte que <span class="text-yellow-400 font-bold">l'argent travaille pour vous</span>. 
+                Le pack ultime de 7 Ebooks pour maîtriser le business en ligne ideal.
+            </p>
+
+            <!-- Timer d'urgence -->
+            <div class="glass rounded-2xl p-6 inline-block mb-12 animate__animated animate__zoomIn animate__delay-1s">
+                <p class="text-gray-400 mb-4 text-sm uppercase">L'offre expire dans:</p>
+                <div class="flex justify-center gap-4">
+                    <div class="text-center">
+                        <span id="hours" class="block text-4xl font-bold">02</span>
+                        <span class="text-xs uppercase text-gray-500">Heures</span>
+                    </div>
+                    <div class="text-3xl text-yellow-500 mt-2">:</div>
+                    <div class="text-center">
+                        <span id="minutes" class="block text-4xl font-bold">45</span>
+                        <span class="text-xs uppercase text-gray-400">Minutes</span>
+                    </div>
+                    <div class="text-3xl text-yellow-500 mt-2">:</div>
+                    <div class="text-center">
+                        <span id="seconds" class="block text-4xl font-bold pulse">12</span>
+                        <span class="text-xs uppercase text-gray-400">Secondes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Principal -->
+            <a href="#pack" class="group relative inline-flex items-center justify-center px-12 py-6 font-bold text-black transition-all duration-200 bg-gradient-to-r from-white to-yellow-100 rounded-full hover:from-yellow-300 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 overflow-hidden shadow-2xl shadow-yellow-500/30 animate__animated animate__pulse animate__delay-2s">
+                <span class="relative z-10 text-xl flex items-center gap-3">
+                    <i class="fas fa-bolt"></i>
+                    ACCÉDER AU PACK MAINTENANT
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+                <div class="absolute inset-0 w-full h-full bg-yellow-400 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full"></div>
+            </a>
+            
+            <div class="mt-8 flex items-center justify-center gap-4 text-gray-400 text-sm">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-green-500"></i>
+                    <span>Paiement 100% sécurisé</span>
+                </div>
+                <div class="h-4 w-px bg-gray-700"></div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-download text-blue-500"></i>
+                    <span>Téléchargement immédiat</span>
+                </div>
+                <div class="h-4 w-px bg-gray-700"></div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-medal text-yellow-500"></i>
+                    <span>Garantie 30 jours</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Pack -->
+    <section id="pack" class="py-24 px-6 max-w-7xl mx-auto">
+        <h2 class="text-4xl font-bold mb-16 text-center italic" data-aos="fade-up">
+            <span class="text-gradient">DANS CE PACK EXCLUSIF</span>, VOUS TROUVEREZ :
+        </h2>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Ebook 1 -->
+            <div class="glass p-8 rounded-3xl glow-gold hover:border-yellow-500/50 transition-all cursor-pointer hover:-translate-y-2" data-aos="flip-left">
+                <div class="w-16 h-16 bg-yellow-600/20 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-brain text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">Mindset de Millionnaire</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">Reprogrammez votre cerveau pour détecter les opportunités là où les autres voient des problèmes. Changez votre relation avec l'argent.</p>
+                <div class="flex items-center text-yellow-500 text-sm">
+                    <i class="fas fa-file-pdf mr-2"></i>
+                    <span>1 • Ebooks</span>
+                </div>
+            </div>
+
+            <!-- Carte Produit Principal -->
+            <div class="glass p-8 rounded-3xl border-2 border-yellow-500 relative floating" data-aos="fade-up">
+                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black px-6 py-2 rounded-full text-sm font-bold uppercase shadow-lg">
+                    <i class="fas fa-crown mr-2"></i>MEILLEUR VENDEUR
+                </div>
+                
+                <div class="w-full aspect-[3/4] bg-gradient-to-br from-yellow-900 via-yellow-700 to-yellow-500 rounded-xl mb-6 shadow-2xl flex flex-col items-center justify-center p-6 text-center">
+                    <div class="text-5xl font-black mb-2">7</div>
+                    <div class="text-xl font-bold">EBOOKS</div>
+                    <div class="text-sm mt-4 text-yellow-100">Prix conventionnel sans remise: 197€</div>
+                    <div class="text-sm mt-4 text-yellow-100">Valeur actuel ( Promo ) : 27€</div>
+                </div>
+                
+                <h3 class="text-2xl font-bold mb-2 text-center">The Business Plan Bundle</h3>
+                <p class="text-gray-400 text-center text-sm mb-6">Pack complet pour maîtriser le business en ligne</p>
+                
+                <div class="text-center mb-6">
+                    <p class="text-yellow-500 font-bold text-4xl">27€</p>
+                    <p class="text-gray-500 text-lg line-through">197€</p>
+                    <p class="text-green-400 text-sm mt-2 font-bold">ÉCONOMISEZ 86%</p>
+                </div>
+                
+                <!-- REMPLACEZ CE LIEN PAR VOTRE VRAI LIEN LEMON SQUEEZY -->
+<a href="https://dath4927.lemonsqueezy.com/checkout/buy/4e44a068-2007-4f1a-b09b-023c2d01abec?embed=1&logo=0" 
+   target="_blank"
+   class="block w-full py-4 bg-gradient-to-r from-white to-yellow-100 text-black text-center rounded-xl font-bold hover:from-yellow-300 hover:to-yellow-500 transition-all shadow-lg hover:shadow-yellow-500/30">
+   <i class="fas fa-shopping-cart mr-2"></i>ACHETER MAINTENANT
+</a>
+                
+                <div class="mt-6 pt-6 border-t border-white/10">
+                    <div class="space-y-3">
+                        <div class="flex items-center gap-2 text-green-400">
+                            <i class="fas fa-lock"></i>
+                            <span class="text-sm">Paiement SSL sécurisé</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fas fa-bolt"></i>
+                            <span>Accès immédiat après paiement</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-gray-400">
+                            <i class="fas fa-headset"></i>
+                            <span>Support client 7j/7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ebook 2 -->
+            <div class="glass p-8 rounded-3xl glow-gold hover:border-yellow-500/50 transition-all cursor-pointer hover:-translate-y-2" data-aos="flip-right">
+                <div class="w-16 h-16 bg-yellow-600/20 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-chart-line text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-4">L'Art de la Vente</h3>
+                <p class="text-gray-400 text-sm leading-relaxed mb-6">Techniques de persuasion psychologique pour vendre n'importe quoi à n'importe qui. Conversion ×5 garantie.</p>
+                <div class="flex items-center text-yellow-500 text-sm">
+                    <i class="fas fa-file-pdf mr-2"></i>
+                    <span>6 • Ebooks</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Liste complète des ebooks -->
+        <div class="mt-20" data-aos="fade-up">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gradient">
+                <i class="fas fa-gift mr-3"></i>CONTENU COMPLET DU PACK (7 EBOOKS)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Ebook 1 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">1</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Mindset Millionnaire</h4>
+                    <p class="text-gray-400 text-sm mb-3">Reprogrammation mentale complète</p>
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Ebook 2 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">2</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Marketing Digital</h4>
+                    <p class="text-gray-400 text-sm mb-3">Stratégies réseaux sociaux & publicités</p>
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                
+                <!-- Ebook 3 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">3</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">E-commerce Mastery</h4>
+                    <p class="text-gray-400 text-sm mb-3">Shopify, Amazon, Dropshipping</p>
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Ebook 4 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">4</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2">Investissement Crypto</h4>
+                    <p class="text-gray-400 text-sm mb-3">Bitcoin, Altcoins, Trading</p>
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                 <!-- Ebook 5 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">5</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2"> Guide complete de 7 methode pour generer des revenus de 1k/mois</h4>
+                    <p class="text-gray-400 text-sm mb-3">Marketing d'Affiliation, Micro-services, Dropshipping Ebay, ...
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                        <!-- Ebook 6 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">6</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2"> L'Art et l'Argent : Le Guide de Finance Personnelle pour Créatifs et Freelances</h4>
+                    <p class="text-gray-400 text-sm mb-3">Le B.A.-BA de la Comptabilité du Freelance, Micro-services, La Méthode du "Pot de Marmite" pour Budgetiser sans Budget Fixe, ...
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                        <!-- Ebook 7 -->
+                <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-white font-bold">7</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-2"> Créateur de Contenu TikTok Monétisé dans la Niche Football 600$/mois - Guide Ultra-Détaillé</h4>
+                    <p class="text-gray-400 text-sm mb-3">Transformez votre passion pour le football en source de revenus stable grâce à TikTok
+                    <div class="text-yellow-500 text-sm">
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star mr-1"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+            
+            <!-- 3 ebooks supplémentaires en ligne -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-600/20 rounded-lg flex items-center justify-center">
+                            <span class="text-yellow-500 font-bold">+</span>
+                        </div>
+                        <h4 class="text-lg font-bold">Copywriting Pro</h4>
+                    </div>
+                </div>
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-600/20 rounded-lg flex items-center justify-center">
+                            <span class="text-yellow-500 font-bold">+</span>
+                        </div>
+                        <h4 class="text-lg font-bold">Productivité Max</h4>
+                    </div>
+                </div>
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-yellow-600/20 rounded-lg flex items-center justify-center">
+                            <span class="text-yellow-500 font-bold">+</span>
+                        </div>
+                        <h4 class="text-lg font-bold">Scaling Business</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Témoignages -->
+        <div class="mt-20" data-aos="fade-up">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gradient">
+                <i class="fas fa-comment-dollar mr-3"></i>ILS ONT TRANSFORMÉ LEUR VIE
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Témoignage 1 -->
+                <div class="testimonial-bg glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center font-bold text-white">M</div>
+                        <div>
+                            <h4 class="font-bold">Marc, 28 ans</h4>
+                            <p class="text-yellow-500 text-sm">Entrepreneur • Achat il y a 3 mois</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"J'ai lancé mon agence de marketing après ce pack. Aujourd'hui, je facture 5 000€/mois. Le chapitre sur le mindset a tout changé."</p>
+                </div>
+                
+                <!-- Témoignage 2 -->
+                <div class="testimonial-bg glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center font-bold text-white">S</div>
+                        <div>
+                            <h4 class="font-bold">Sophie, 32 ans</h4>
+                            <p class="text-yellow-500 text-sm">Freelance • Achat il y a 2 mois</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"Les techniques de vente m'ont permis de multiplier mes revenus par 3. J'ai appris à vendre mes services avec confiance."</p>
+                </div>
+                
+                <!-- Témoignage 3 -->
+                <div class="testimonial-bg glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center font-bold text-white">T</div>
+                        <div>
+                            <h4 class="font-bold">Thomas, 25 ans</h4>
+                            <p class="text-yellow-500 text-sm">Étudiant • Achat il y a 1 mois</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"Je suis passé de 0 à 2 000€/mois avec le dropshipping grâce au module e-commerce. Tout est expliqué étape par étape."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- FAQ -->
+    <section class="py-20 px-6 max-w-4xl mx-auto">
+        <h3 class="text-3xl font-bold text-center mb-10 text-gradient" data-aos="fade-up">
+            <i class="fas fa-question-circle mr-3"></i>QUESTIONS FRÉQUEMMENT POSÉES
+        </h3>
+        
+        <div class="space-y-4" data-aos="fade-up">
+            <!-- Question 1 -->
+            <div class="glass p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(1)">
+                    <span class="font-bold text-lg">Comment vais-je recevoir les ebooks ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
+                </button>
+                <div id="faq-content-1" class="mt-4 text-gray-400 hidden">
+                    Immédiatement après votre paiement, vous recevrez un email avec un lien de téléchargement pour le pack complet (fichier ZIP). Vous pourrez également accéder aux fichiers depuis votre compte client Lemon Squeezy.
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="glass p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(2)">
+                    <span class="font-bold text-lg">Puis-je payer par PayPal ou carte bancaire ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
+                </button>
+                <div id="faq-content-2" class="mt-4 text-gray-400 hidden">
+                    Oui ! Nous acceptons toutes les cartes bancaires (Visa, Mastercard, American Express), PayPal, et Apple Pay. Le paiement est 100% sécurisé via Lemon Squeezy.
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="glass p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(3)">
+                    <span class="font-bold text-lg">Les ebooks sont-ils en français ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
+                </button>
+                <div id="faq-content-3" class="mt-4 text-gray-400 hidden">
+                    Oui, tous les ebooks sont écrits en français, avec des exemples concrets adaptés au marché francophone.
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="glass p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(4)">
+                    <span class="font-bold text-lg">Y a-t-il un support après l'achat ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-4"></i>
+                </button>
+                <div id="faq-content-4" class="mt-4 text-gray-400 hidden">
+                    Absolument ! Vous avez accès à notre support par email 7j/7. Nous répondons généralement dans les 24 heures.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 text-center border-t border-white/5 mt-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-8">
+                <div class="text-left">
+                    <h4 class="text-2xl font-bold mb-4 text-gradient">THE BUSINESS PLAN</h4>
+                    <p class="text-gray-500 max-w-md">Transformez votre vie financière avec notre pack ultime de 7 ebooks sur le business en ligne.</p>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 mb-4 italic">Rejoignez les 450+ étudiants satisfaits</p>
+                    <div class="flex justify-center md:justify-end gap-6 text-2xl text-gray-400 mb-8">
+                        <a href="https://tiktok.com" target="_blank" class="hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:contact@example.com" class="hover:text-yellow-500 transition-colors">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8">
+                <div class="text-gray-600 text-sm">
+                    <p>© 2024 THE BUSINESS PLAN | L'Elite. Tous droits réservés.</p>
+                    <p class="mt-2">
+                        <a href="#" class="hover:text-yellow-500 mx-2">Mentions légales</a> • 
+                        <a href="#" class="hover:text-yellow-500 mx-2">Politique de confidentialité</a> • 
+                        <a href="#" class="hover:text-yellow-500 mx-2">Conditions de vente</a> • 
+                        <a href="#" class="hover:text-yellow-500 mx-2">Contact</a>
+                    </p>
+                </div>
+                
+                <div class="mt-6 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-lock"></i>
+                        <span>Paiement sécurisé SSL</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Livraison instantanée</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-headset"></i>
+                        <span>Support 7j/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialisation des animations
+        AOS.init({ 
+            duration: 1000, 
+            once: true,
+            offset: 100
+        });
+
+        // Timer de l'urgence
+        let totalSeconds = 2 * 3600 + 45 * 60 + 12;
+        
+        function updateTimer() {
+            totalSeconds--;
+            if (totalSeconds < 0) {
+                totalSeconds = 2 * 3600 + 45 * 60 + 12;
+            }
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Animation pulse sur les secondes
+            const secondsElement = document.getElementById('seconds');
+            secondsElement.classList.remove('pulse');
+            void secondsElement.offsetWidth; // Trigger reflow
+            secondsElement.classList.add('pulse');
+        }
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Simulation de notifications (Social Proof)
+        const names = ["Thomas", "Sarah", "Kevin", "Amine", "Léa", "Marc", "Sophie", "Alexandre", "Julie", "Nicolas"];
+        const times = ["quelques secondes", "1 minute", "2 minutes", "3 minutes", "5 minutes"];
+        
+        function showNotification() {
+            const notif = document.getElementById('notif');
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomTime = times[Math.floor(Math.random() * times.length)];
+            
+            // Changer aussi l'initiale
+            const initialElement = notif.querySelector('.w-10.h-10');
+            initialElement.textContent = randomName.charAt(0);
+            
+            notif.querySelector('p').innerHTML = `${randomName} vient d'acheter le pack <br><span class="font-bold text-yellow-500">il y a ${randomTime}</span>`;
+            notif.style.transform = "translateY(0)";
+            
+            setTimeout(() => { 
+                notif.style.transform = "translateY(160px)"; 
+            }, 4000);
+        }
+        
+        // Afficher une notification immédiatement
+        setTimeout(showNotification, 1000);
+        
+        // Puis toutes les 10-20 secondes
+        setInterval(showNotification, 10000 + Math.random() * 10000);
+        
+        // Scroll doux pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fonction FAQ
+        function toggleFAQ(num) {
+            const content = document.getElementById(`faq-content-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Vérifier si c'est un mobile pour ajuster les animations
+        if (window.innerWidth < 768) {
+            AOS.init({
+                duration: 800,
+                once: true,
+                disable: 'phone'
+            });
+        }
+
+        // Ajout d'un effet de confetti au clic sur le CTA
+        document.querySelectorAll('a[href*="lemonsqueezy"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Ici vous pouvez ajouter du tracking Google Analytics
+                console.log('Clic sur le bouton d\'achat');
+                
+                // Pour l'instant, juste un feedback visuel
+                this.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    this.classList.remove('animate__animated', 'animate__pulse');
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
