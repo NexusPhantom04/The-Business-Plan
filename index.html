@@ -33,6 +33,12 @@
             backdrop-filter: blur(10px); 
             border: 1px solid rgba(255, 255, 255, 0.1); 
         }
+        .glass-enhanced {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
         .glow-gold { 
             box-shadow: 0 0 50px rgba(212, 175, 55, 0.15); 
         }
@@ -47,8 +53,15 @@
             50% { transform: translateY(-20px); } 
             100% { transform: translateY(0px); } 
         }
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
         .floating { 
             animation: float 4s ease-in-out infinite; 
+        }
+        .floating-subtle {
+            animation: float-subtle 6s ease-in-out infinite;
         }
         .testimonial-bg { 
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%); 
@@ -57,13 +70,29 @@
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); opacity: 1; }
+            50% { opacity: 0.7; }
             70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); opacity: 1; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Header Navigation -->
+    <header class="fixed top-0 w-full z-50 glass border-b border-white/10 backdrop-blur-xl">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-gradient">THE BUSINESS PLAN</div>
+            <div class="hidden md:flex gap-8">
+                <a href="#pack" class="hover:text-yellow-500 transition-colors">Le Pack</a>
+                <a href="#contenu" class="hover:text-yellow-500 transition-colors">Contenu</a>
+                <a href="#faq" class="hover:text-yellow-500 transition-colors">FAQ</a>
+            </div>
+            <a href="#pack" class="px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-full font-bold hover:from-yellow-600 hover:to-yellow-800 transition-all">
+                Acheter
+            </a>
+        </nav>
+    </header>
 
     <!-- Notification Social Proof -->
     <div id="notif" class="fixed bottom-5 left-5 glass p-4 rounded-xl z-50 translate-y-40 transition-all duration-500 flex items-center gap-4">
@@ -71,10 +100,13 @@
         <p class="text-sm">Jean-Sébastien vient d'acheter le pack <br><span class="font-bold text-yellow-500">il y a 2 min</span></p>
     </div>
 
-    <!-- Header/Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-16">
-        <div class="absolute top-[-10%] left-[-10%] w-[400px] h-[400px] bg-yellow-900/20 rounded-full blur-[120px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[400px] h-[400px] bg-yellow-700/10 rounded-full blur-[120px]"></div>
+    <!-- Header/Hero Section améliorée -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+        <div class="absolute top-0 left-0 w-full h-full">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+        </div>
 
         <div class="text-center z-10 max-w-6xl mx-auto">
             <div class="inline-flex items-center gap-2 bg-yellow-900/30 text-yellow-400 px-4 py-2 rounded-full text-sm mb-8 animate__animated animate__fadeIn">
@@ -91,38 +123,44 @@
                 Le pack ultime de 7 Ebooks pour maîtriser le business en ligne ideal.
             </p>
 
-            <!-- Timer d'urgence -->
-            <div class="glass rounded-2xl p-6 inline-block mb-12 animate__animated animate__zoomIn animate__delay-1s">
-                <p class="text-gray-400 mb-4 text-sm uppercase">L'offre expire dans:</p>
-                <div class="flex justify-center gap-4">
+            <!-- Timer amélioré -->
+            <div class="glass-enhanced rounded-2xl p-6 inline-block mb-12 animate__animated animate__zoomIn animate__delay-1s">
+                <p class="text-gray-400 mb-4 text-sm uppercase tracking-wider">L'offre expire dans:</p>
+                <div class="flex items-center justify-center gap-3">
                     <div class="text-center">
-                        <span id="hours" class="block text-4xl font-bold">02</span>
-                        <span class="text-xs uppercase text-gray-500">Heures</span>
+                        <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 flex flex-col items-center justify-center">
+                            <span id="hours" class="block text-3xl font-bold">02</span>
+                            <span class="text-xs uppercase text-gray-400 mt-1">Heures</span>
+                        </div>
                     </div>
                     <div class="text-3xl text-yellow-500 mt-2">:</div>
                     <div class="text-center">
-                        <span id="minutes" class="block text-4xl font-bold">45</span>
-                        <span class="text-xs uppercase text-gray-400">Minutes</span>
+                        <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 flex flex-col items-center justify-center">
+                            <span id="minutes" class="block text-3xl font-bold">45</span>
+                            <span class="text-xs uppercase text-gray-400 mt-1">Minutes</span>
+                        </div>
                     </div>
                     <div class="text-3xl text-yellow-500 mt-2">:</div>
                     <div class="text-center">
-                        <span id="seconds" class="block text-4xl font-bold pulse">12</span>
-                        <span class="text-xs uppercase text-gray-400">Secondes</span>
+                        <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 flex flex-col items-center justify-center pulse">
+                            <span id="seconds" class="block text-3xl font-bold text-yellow-400">12</span>
+                            <span class="text-xs uppercase text-gray-400 mt-1">Secondes</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- CTA Principal -->
-            <a href="#pack" class="group relative inline-flex items-center justify-center px-12 py-6 font-bold text-black transition-all duration-200 bg-gradient-to-r from-white to-yellow-100 rounded-full hover:from-yellow-300 hover:to-yellow-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 overflow-hidden shadow-2xl shadow-yellow-500/30 animate__animated animate__pulse animate__delay-2s">
+            <!-- CTA amélioré -->
+            <a href="#pack" class="group relative inline-flex items-center justify-center px-12 py-6 font-bold text-black transition-all duration-300 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-full hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 transform hover:-translate-y-1 shadow-2xl shadow-yellow-500/30 hover:shadow-yellow-500/50 animate__animated animate__pulse animate__delay-2s">
                 <span class="relative z-10 text-xl flex items-center gap-3">
                     <i class="fas fa-bolt"></i>
                     ACCÉDER AU PACK MAINTENANT
-                    <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
                 </span>
                 <div class="absolute inset-0 w-full h-full bg-yellow-400 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full"></div>
             </a>
             
-            <div class="mt-8 flex items-center justify-center gap-4 text-gray-400 text-sm">
+            <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <div class="flex items-center gap-2">
                     <i class="fas fa-shield-alt text-green-500"></i>
                     <span>Paiement 100% sécurisé</span>
@@ -141,12 +179,71 @@
         </div>
     </section>
 
-    <!-- Section Pack -->
-    <section id="pack" class="py-24 px-6 max-w-7xl mx-auto">
-        <h2 class="text-4xl font-bold mb-16 text-center italic" data-aos="fade-up">
+    <!-- Section "Ce Que Vous Allez Apprendre" -->
+    <section id="contenu" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-16 text-gradient" data-aos="fade-up">
             <span class="text-gradient">DANS CE PACK EXCLUSIF</span>, VOUS TROUVEREZ :
         </h2>
         
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Compétence 1 -->
+            <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all hover:-translate-y-2" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-brain text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Mindset Gagnant</h3>
+                <p class="text-gray-400 text-sm">Reprogrammez votre cerveau pour détecter les opportunités là où les autres voient des problèmes.</p>
+            </div>
+            
+            <!-- Compétence 2 -->
+            <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all hover:-translate-y-2" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-chart-line text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Marketing Digital</h3>
+                <p class="text-gray-400 text-sm">Maîtrisez les réseaux sociaux, le SEO et la publicité en ligne pour attirer des clients.</p>
+            </div>
+            
+            <!-- Compétence 3 -->
+            <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all hover:-translate-y-2" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-shopping-cart text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">E-commerce</h3>
+                <p class="text-gray-400 text-sm">Lancez votre boutique en ligne, Amazon FBA ou système de dropshipping.</p>
+            </div>
+            
+            <!-- Compétence 4 -->
+            <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all hover:-translate-y-2" data-aos="fade-up" data-aos-delay="400">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-coins text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Investissement</h3>
+                <p class="text-gray-400 text-sm">Comprendre les cryptos, actions et immobilier pour faire travailler votre argent.</p>
+            </div>
+            
+            <!-- Compétence 5 - MODIFIÉ: TikTok Monetization -->
+            <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all hover:-translate-y-2" data-aos="fade-up" data-aos-delay="500">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center mb-4">
+                    <i class="fab fa-tiktok text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Monétisation TikTok</h3>
+                <p class="text-gray-400 text-sm">Programmes de récompense, créateur funds, et stratégies pour générer des revenus sur TikTok.</p>
+            </div>
+            
+            <!-- Compétence 6 -->
+            <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all hover:-translate-y-2" data-aos="fade-up" data-aos-delay="600">
+                <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-500/20 to-yellow-700/10 flex items-center justify-center mb-4">
+                    <i class="fas fa-rocket text-2xl text-yellow-500"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Scaling</h3>
+                <p class="text-gray-400 text-sm">Techniques pour passer de 1 000€ à 10 000€ par mois et au-delà.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Pack améliorée -->
+    <section id="pack" class="py-24 px-6 max-w-7xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Ebook 1 -->
             <div class="glass p-8 rounded-3xl glow-gold hover:border-yellow-500/50 transition-all cursor-pointer hover:-translate-y-2" data-aos="flip-left">
@@ -161,10 +258,15 @@
                 </div>
             </div>
 
-            <!-- Carte Produit Principal -->
-            <div class="glass p-8 rounded-3xl border-2 border-yellow-500 relative floating" data-aos="fade-up">
-                <div class="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black px-6 py-2 rounded-full text-sm font-bold uppercase shadow-lg">
-                    <i class="fas fa-crown mr-2"></i>MEILLEUR VENTE
+            <!-- Carte Produit Principal améliorée -->
+            <div class="glass-enhanced p-8 rounded-3xl border-2 border-yellow-500 relative floating-subtle scale-105" data-aos="zoom-in">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black px-6 py-2 rounded-full text-sm font-bold uppercase shadow-lg">
+                    <i class="fas fa-star mr-2"></i>MEILLEUR VENTE
+                </div>
+                
+                <!-- Badge économie -->
+                <div class="absolute -top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                    ÉCONOMISEZ 72%
                 </div>
                 
                 <div class="w-full aspect-[3/4] bg-gradient-to-br from-yellow-900 via-yellow-700 to-yellow-500 rounded-xl mb-6 shadow-2xl flex flex-col items-center justify-center p-6 text-center">
@@ -183,14 +285,19 @@
                     <p class="text-green-400 text-sm mt-2 font-bold">ÉCONOMISEZ 72%</p>
                 </div>
                 
-                <!-- REMPLACEZ CE LIEN PAR VOTRE VRAI LIEN LEMON SQUEEZY -->
-<a href="https://dath4927.lemonsqueezy.com/checkout/buy/4e44a068-2007-4f1a-b09b-023c2d01abec?embed=1&logo=0" 
-   target="_blank"
-   class="block w-full py-4 bg-gradient-to-r from-white to-yellow-100 text-black text-center rounded-xl font-bold hover:from-yellow-300 hover:to-yellow-500 transition-all shadow-lg hover:shadow-yellow-500/30">
-   <i class="fas fa-shopping-cart mr-2"></i>ACHETER MAINTENANT
-</a>
+                <!-- Bouton d'achat amélioré -->
+                <a href="https://dath4927.lemonsqueezy.com/checkout/buy/4e44a068-2007-4f1a-b09b-023c2d01abec?embed=1&logo=0" 
+                   target="_blank"
+                   class="block w-full py-4 bg-gradient-to-r from-white to-yellow-100 text-black text-center rounded-xl font-bold hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40">
+                   <div class="flex items-center justify-center gap-3">
+                     <i class="fas fa-shopping-cart"></i>
+                     <span class="text-lg">ACHETER MAINTENANT</span>
+                     <i class="fas fa-arrow-right"></i>
+                   </div>
+                   <p class="text-xs mt-2 text-gray-600">Paiement sécurisé • Accès instantané</p>
+                </a>
                 
-                <div class="mt-6 pt-6 border-t border-white/10">
+                <div class="mt-8 pt-6 border-t border-white/10">
                     <div class="space-y-3">
                         <div class="flex items-center gap-2 text-green-400">
                             <i class="fas fa-lock"></i>
@@ -291,7 +398,8 @@
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
-                 <!-- Ebook 5 -->
+                
+                <!-- Ebook 5 -->
                 <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
                     <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
                         <span class="text-white font-bold">5</span>
@@ -306,7 +414,8 @@
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
-                        <!-- Ebook 6 -->
+                
+                <!-- Ebook 6 -->
                 <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
                     <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
                         <span class="text-white font-bold">6</span>
@@ -321,7 +430,8 @@
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
-                        <!-- Ebook 7 -->
+                
+                <!-- Ebook 7 -->
                 <div class="glass p-6 rounded-2xl hover:border-yellow-500/50 transition-all">
                     <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl flex items-center justify-center mb-4">
                         <span class="text-white font-bold">7</span>
@@ -334,36 +444,6 @@
                         <i class="fas fa-star mr-1"></i>
                         <i class="fas fa-star mr-1"></i>
                         <i class="fas fa-star"></i>
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
-            
-            <!-- 3 ebooks supplémentaires en ligne -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <div class="glass p-6 rounded-2xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-yellow-600/20 rounded-lg flex items-center justify-center">
-                            <span class="text-yellow-500 font-bold">+</span>
-                        </div>
-                        <h4 class="text-lg font-bold">Copywriting Pro</h4>
-                    </div>
-                </div>
-                <div class="glass p-6 rounded-2xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-yellow-600/20 rounded-lg flex items-center justify-center">
-                            <span class="text-yellow-500 font-bold">+</span>
-                        </div>
-                        <h4 class="text-lg font-bold">Productivité Max</h4>
-                    </div>
-                </div>
-                <div class="glass p-6 rounded-2xl">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 bg-yellow-600/20 rounded-lg flex items-center justify-center">
-                            <span class="text-yellow-500 font-bold">+</span>
-                        </div>
-                        <h4 class="text-lg font-bold">Scaling Business</h4>
                     </div>
                 </div>
             </div>
@@ -435,17 +515,15 @@
         </div>
     </section>
 
-    
-
     <!-- FAQ -->
-    <section class="py-20 px-6 max-w-4xl mx-auto">
+    <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
         <h3 class="text-3xl font-bold text-center mb-10 text-gradient" data-aos="fade-up">
             <i class="fas fa-question-circle mr-3"></i>QUESTIONS FRÉQUEMMENT POSÉES
         </h3>
         
         <div class="space-y-4" data-aos="fade-up">
             <!-- Question 1 -->
-            <div class="glass p-6 rounded-2xl">
+            <div class="glass-enhanced p-6 rounded-2xl">
                 <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(1)">
                     <span class="font-bold text-lg">Comment vais-je recevoir les ebooks ?</span>
                     <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
@@ -456,7 +534,7 @@
             </div>
             
             <!-- Question 2 -->
-            <div class="glass p-6 rounded-2xl">
+            <div class="glass-enhanced p-6 rounded-2xl">
                 <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(2)">
                     <span class="font-bold text-lg">Puis-je payer par PayPal ou carte bancaire ?</span>
                     <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
@@ -467,7 +545,7 @@
             </div>
             
             <!-- Question 3 -->
-            <div class="glass p-6 rounded-2xl">
+            <div class="glass-enhanced p-6 rounded-2xl">
                 <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(3)">
                     <span class="font-bold text-lg">Les ebooks sont-ils en français ?</span>
                     <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
@@ -478,7 +556,7 @@
             </div>
             
             <!-- Question 4 -->
-            <div class="glass p-6 rounded-2xl">
+            <div class="glass-enhanced p-6 rounded-2xl">
                 <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(4)">
                     <span class="font-bold text-lg">Y a-t-il un support après l'achat ?</span>
                     <i class="fas fa-chevron-down transition-transform" id="faq-icon-4"></i>
@@ -487,21 +565,29 @@
                     Absolument ! Vous avez accès à notre support par email 7j/7. Nous répondons généralement dans les 24 heures.
                 </div>
             </div>
+            
+            <!-- Question 5 - AJOUTÉ: TikTok Monetization -->
+            <div class="glass-enhanced p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(5)">
+                    <span class="font-bold text-lg">Est-ce que le pack couvre la monétisation TikTok ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-5"></i>
+                </button>
+                <div id="faq-content-5" class="mt-4 text-gray-400 hidden">
+                    Oui ! Le pack inclut un ebook complet sur la monétisation TikTok, couvrant les programmes de récompense, le Creator Fund, la monétisation en direct, et comment générer jusqu'à 600$/mois dans la niche football.
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="py-20 text-center border-t border-white/5 mt-20">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-8">
-                <div class="text-left">
-                    <h4 class="text-2xl font-bold mb-4 text-gradient">THE BUSINESS PLAN</h4>
-                    <p class="text-gray-500 max-w-md">Transformez votre vie financière avec notre pack ultime de 7 ebooks sur le business en ligne.</p>
-                </div>
-                
-                <div class="text-center md:text-right">
-                    <p class="text-gray-500 mb-4 italic">Rejoignez les 450+ étudiants satisfaits</p>
-                    <div class="flex justify-center md:justify-end gap-6 text-2xl text-gray-400 mb-8">
+    <!-- Footer amélioré -->
+    <footer class="py-16 px-6 border-t border-white/10 bg-gradient-to-b from-transparent to-black/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                <!-- Colonne 1 -->
+                <div>
+                    <h4 class="text-2xl font-bold mb-6 text-gradient">THE BUSINESS PLAN</h4>
+                    <p class="text-gray-500 mb-6">Transformez votre vie financière avec notre pack ultime de 7 ebooks sur le business en ligne.</p>
+                    <div class="flex gap-4 text-2xl">
                         <a href="https://tiktok.com" target="_blank" class="hover:text-yellow-500 transition-colors">
                             <i class="fab fa-tiktok"></i>
                         </a>
@@ -516,18 +602,40 @@
                         </a>
                     </div>
                 </div>
-            </div>
-            
-            <div class="border-t border-white/10 pt-8">
-                <div class="text-gray-600 text-sm">
-                    <p>© 2024 THE BUSINESS PLAN | L'Elite. Tous droits réservés.</p>
-                    <p class="mt-2">
-                        <a href="#" class="hover:text-yellow-500 mx-2">Mentions légales</a> • 
-                        <a href="#" class="hover:text-yellow-500 mx-2">Politique de confidentialité</a> • 
-                        <a href="#" class="hover:text-yellow-500 mx-2">Conditions de vente</a> • 
-                        <a href="#" class="hover:text-yellow-500 mx-2">Contact</a>
+                
+                <!-- Colonne 2 -->
+                <div>
+                    <h5 class="text-lg font-bold mb-6">INFORMATIONS</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Mentions légales</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Politique de confidentialité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Conditions de vente</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-yellow-500 transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Colonne 3 -->
+                <div>
+                    <h5 class="text-lg font-bold mb-6">CONTACT</h5>
+                    <p class="text-gray-400 mb-4">
+                        <i class="fas fa-envelope mr-2 text-yellow-500"></i>
+                        dathalphamody@gmail.com
+                    </p>
+                    <p class="text-gray-400">
+                        <i class="fas fa-headset mr-2 text-yellow-500"></i>
+                        Support : Réponse sous 24h
                     </p>
                 </div>
+            </div>
+            
+            <!-- Séparateur -->
+            <div class="border-t border-white/10 pt-8 text-center">
+                <p class="text-gray-600 text-sm">
+                    © 2024 THE BUSINESS PLAN | L'Elite. Tous droits réservés.
+                    <span class="block mt-2">
+                        Site conçu pour transformer votre vie financière
+                    </span>
+                </p>
                 
                 <div class="mt-6 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
                     <div class="flex items-center gap-2">
@@ -627,10 +735,12 @@
             });
         });
 
-        // Fonction FAQ
+        // Fonction FAQ améliorée pour gérer la nouvelle question
         function toggleFAQ(num) {
             const content = document.getElementById(`faq-content-${num}`);
             const icon = document.getElementById(`faq-icon-${num}`);
+            
+            if (!content || !icon) return;
             
             if (content.classList.contains('hidden')) {
                 content.classList.remove('hidden');
