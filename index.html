@@ -1,307 +1,883 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory des Drapeaux - Alpha Mody Dath</title>
+    <title>BUSINESS PLAN | L'Elite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/96/000000/books.png">
+    <!-- Open Graph pour les réseaux sociaux -->
+    <meta property="og:title" content="THE BUSINESS PLAN - Pack de 7 Ebooks">
+    <meta property="og:description" content="Ne travaillez plus pour l'argent. Faites en sorte que l'argent travaille pour vous.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --gold: #D4AF37;
+            --dark-gold: #AA891A;
+            --black: #050505;
         }
-
-        body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 2rem;
-            color: #333;
+        body { 
+            background-color: var(--black); 
+            color: white; 
+            overflow-x: hidden;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
-            position: relative;
+        .glass { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
         }
-
-        .header {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 5px solid #ffd700;
+        .glass-enhanced {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
         }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        .glow-gold { 
+            box-shadow: 0 0 50px rgba(212, 175, 55, 0.15); 
         }
-
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.95;
-            font-style: italic;
+        .text-gradient { 
+            background: linear-gradient(to right, #D4AF37, #FFF5D6, #AA891A); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .author-box {
-            background: #f8f9fa;
-            padding: 1rem;
-            border-left: 5px solid #28a745;
-            margin: 1.5rem;
-            border-radius: 0 10px 10px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+        @keyframes float { 
+            0% { transform: translateY(0px); } 
+            50% { transform: translateY(-20px); } 
+            100% { transform: translateY(0px); } 
         }
-
-        .author {
-            font-weight: bold;
-            color: #28a745;
-            font-size: 1.1rem;
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
-
-        .date {
-            color: #6c757d;
-            font-style: italic;
+        .floating { 
+            animation: float 4s ease-in-out infinite; 
         }
-
-        .content {
-            padding: 1.5rem;
+        .floating-subtle {
+            animation: float-subtle 6s ease-in-out infinite;
         }
-
-        h2 {
-            color: #1e3c72;
-            border-bottom: 3px solid #ffd700;
-            padding-bottom: 0.5rem;
-            margin: 1.5rem 0 1rem 0;
-            font-size: 1.8rem;
+        .testimonial-bg { 
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0, 0, 0, 0) 100%); 
         }
-
-        .description {
-            background: #e3f2fd;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-            border: 1px solid #90caf9;
+        .pulse {
+            animation: pulse 2s infinite;
         }
-
-        .france-flag {
-            display: inline-block;
-            width: 30px;
-            height: 20px;
-            background: linear-gradient(90deg, #0055A4 33.33%, white 33.33% 66.66%, #EF4135 66.66%);
-            border: 1px solid #000;
-            margin: 0 5px;
-            vertical-align: middle;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); opacity: 1; }
+            50% { opacity: 0.7; }
+            70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); opacity: 1; }
         }
+        .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    color: #e5e7eb;
+    transition: all 0.25s ease;
+}
 
-        .installation {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 1.5rem;
-            border-radius: 10px;
-            font-family: 'Courier New', monospace;
-            margin: 1rem 0;
-        }
+.menu-item:hover {
+    background: rgba(212, 175, 55, 0.12);
+    color: #D4AF37;
+}
 
-        .command {
-            background: #2d2d2d;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            border-left: 4px solid #ffd700;
-            margin: 0.5rem 0;
-            color: #ce9178;
-        }
-
-        .difficulty-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-        }
-
-        .difficulty-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .difficulty-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .difficulty-card.facile { border-top: 5px solid #28a745; }
-        .difficulty-card.moyen { border-top: 5px solid #ffc107; }
-        .difficulty-card.difficile { border-top: 5px solid #dc3545; }
-
-        .time {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 0.5rem 0;
-        }
-
-        .example {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-        }
-
-        .feedback {
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            padding: 1rem;
-            border-radius: 10px;
-            margin: 1rem 0;
-        }
-
-        .dev-section {
-            background: linear-gradient(135deg, #667eea15, #764ba215);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            border: 1px solid #764ba2;
-        }
-
-        .signature {
-            margin-top: 2rem;
-            padding: 1rem;
-            background: #f8f9fa;
-            border-radius: 10px;
-            text-align: center;
-            font-style: italic;
-            color: #6c757d;
-        }
-
-        .footer {
-            background: #1e3c72;
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-            margin-top: 1rem;
-        }
-
-        .flag-icon {
-            display: inline-block;
-            font-size: 1.5rem;
-            margin: 0 0.5rem;
-        }
-
-        @media (max-width: 768px) {
-            body { padding: 1rem; }
-            h1 { font-size: 1.8rem; }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎮 Memory avec des Drapeaux</h1>
-            <div class="subtitle">Un jeu de mémoire simple et amusant, développé en langage C</div>
+
+  <!-- Header Navigation PRO -->
+<header class="fixed top-0 w-full z-50 glass border-b border-white/10 backdrop-blur-xl">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+
+        <!-- Logo -->
+        <div class="text-2xl font-bold text-gradient">
+            THE BUSINESS PLAN
         </div>
 
-        <div class="author-box">
-            <span class="author">👨‍💻 Programmeur : Alpha Mody Dath</span>
-            <span class="date">📅 Date : 14 décembre 2025</span>
+        <!-- Zone droite -->
+        <div class="relative flex items-center gap-4">
+
+            <!-- Bouton Acheter -->
+            <a href="#pack"
+               class="hidden sm:inline-block px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-700 
+                      rounded-full font-bold hover:from-yellow-600 hover:to-yellow-800 transition-all">
+                Acheter
+            </a>
+
+            <!-- Bouton menu hamburger -->
+            <button id="menuBtn"
+                class="w-11 h-11 flex flex-col justify-center items-center gap-[5px]
+                       rounded-xl glass-enhanced border border-white/10
+                       hover:border-yellow-500/40 transition-all duration-300">
+
+                <span class="w-6 h-[2px] bg-white rounded-full transition-all"></span>
+                <span class="w-6 h-[2px] bg-white rounded-full transition-all"></span>
+                <span class="w-6 h-[2px] bg-white rounded-full transition-all"></span>
+            </button>
+
+            <!-- Menu déroulant -->
+            <div id="menuDropdown"
+                class="absolute right-0 top-14 w-60 hidden
+                       glass-enhanced rounded-2xl shadow-2xl
+                       border border-white/10
+                       origin-top-right scale-95 opacity-0
+                       transition-all duration-200 z-50 overflow-hidden">
+
+                <a href="#pack" class="menu-item">
+                    <i class="fas fa-box-open"></i>
+                    <span>Le Pack</span>
+                </a>
+
+                <a href="#contenu" class="menu-item">
+                    <i class="fas fa-book"></i>
+                    <span>Contenu</span>
+                </a>
+
+                <a href="#faq" class="menu-item">
+                    <i class="fas fa-circle-question"></i>
+                    <span>FAQ</span>
+                </a>
+
+                <a href="#temoignage" class="menu-item">
+                    <i class="fas fa-comment-dots"></i>
+                    <span>Témoignages</span>
+                </a>
+
+                <div class="border-t border-white/10 my-1"></div>
+
+                <a href="#pack" class="menu-item font-bold text-yellow-500">
+                    <i class="fas fa-bolt"></i>
+                    <span>Accéder au pack</span>
+                </a>
+            </div>
+
+        </div>
+    </nav>
+</header>
+
+
+    <!-- Notification Social Proof -->
+    <div id="notif" class="fixed bottom-5 left-5 glass p-4 rounded-xl z-50 translate-y-40 transition-all duration-500 flex items-center gap-4">
+        <div class="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center font-bold">JS</div>
+        <p class="text-sm">Jean-Sébastien vient d'acheter le pack <br><span class="font-bold text-yellow-500">il y a 2 min</span></p>
+    </div>
+
+    <!-- Header/Hero Section améliorée -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 overflow-hidden pt-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+        <div class="absolute top-0 left-0 w-full h-full">
+            <div class="absolute top-10 left-10 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
         </div>
 
-        <div class="content">
-            <h2>📖 Description du jeu</h2>
-            <div class="description">
-                <p>Le jeu de Memory avec des Drapeaux est un défi de mémoire dans lequel le joueur doit retrouver les positions du drapeau identique demandé par <strong>M. Dath</strong>.</p>
-                <p style="margin-top: 1rem;"><strong>🎯 Objectif :</strong> Le joueur gagne s'il trouve les deux positions exactes du drapeau de la France <span class="france-flag"></span>. Initialement, le jeu devait aussi inclure le drapeau de l'Italie <span class="flag-icon">🇮🇹</span>, mais pour simplifier et respecter les délais, seule la France a été conservée.</p>
+        <div class="text-center z-10 max-w-6xl mx-auto">
+            <div class="inline-flex items-center gap-2 bg-yellow-900/30 text-yellow-400 px-4 py-2 rounded-full text-sm mb-8 animate__animated animate__fadeIn">
+                <i class="fas fa-fire"></i>
+                <span>OFFRE SPÉCIALE LIMITÉE</span>
             </div>
-
-            <h2>⚙️ Installation</h2>
-            <div class="installation">
-                <p>Suivez ces étapes pour installer et compiler le jeu :</p>
-                <p style="margin-top: 1rem;">📦 Décompressez le fichier ZIP nommé <strong>Projet language C</strong> (ce qui crée son répertoire).</p>
-                <div class="command">📂 cd Projet language C</div>
-                <div class="command">🔧 gcc Jeu memory.c -o Jeu memory</div>
-                <div class="command">🚀 ./Jeu memory</div>
-            </div>
-
-            <h2>🎯 Comment jouer</h2>
-            <p style="margin-bottom: 1rem;">Après avoir lancé le jeu, vous devez choisir un niveau de difficulté :</p>
             
-            <div class="difficulty-grid">
-                <div class="difficulty-card facile">
-                    <h3 style="color: #28a745;">Niveau 1</h3>
-                    <div class="time">10s</div>
-                    <p style="color: #28a745; font-weight: bold;">Facile</p>
+            <h1 class="text-5xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter animate__animated animate__fadeInDown">
+                THE <span class="text-gradient underline">BUSINESS</span> PLAN
+            </h1>
+            
+            <p class="text-gray-300 text-lg md:text-2xl max-w-3xl mx-auto mb-10 animate__animated animate__fadeIn animate__delay-1s">
+                Ne travaillez plus pour l'argent. Faites en sorte que <span class="text-yellow-400 font-bold">l'argent travaille pour vous</span>. 
+                Le pack ultime de 7 Ebooks pour maîtriser le business en ligne ideal.
+            </p>
+
+            <!-- Timer amélioré -->
+            <div class="glass-enhanced rounded-2xl p-6 inline-block mb-12 animate__animated animate__zoomIn animate__delay-1s">
+                <p class="text-gray-400 mb-4 text-sm uppercase tracking-wider">L'offre expire dans:</p>
+                <div class="flex items-center justify-center gap-3">
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 flex flex-col items-center justify-center">
+                            <span id="hours" class="block text-3xl font-bold">02</span>
+                            <span class="text-xs uppercase text-gray-400 mt-1">Heures</span>
+                        </div>
+                    </div>
+                    <div class="text-3xl text-yellow-500 mt-2">:</div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 flex flex-col items-center justify-center">
+                            <span id="minutes" class="block text-3xl font-bold">45</span>
+                            <span class="text-xs uppercase text-gray-400 mt-1">Minutes</span>
+                        </div>
+                    </div>
+                    <div class="text-3xl text-yellow-500 mt-2">:</div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-gray-900 to-black border border-yellow-500/30 flex flex-col items-center justify-center pulse">
+                            <span id="seconds" class="block text-3xl font-bold text-yellow-400">12</span>
+                            <span class="text-xs uppercase text-gray-400 mt-1">Secondes</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="difficulty-card moyen">
-                    <h3 style="color: #ffc107;">Niveau 2</h3>
-                    <div class="time">7s</div>
-                    <p style="color: #ffc107; font-weight: bold;">Moyen</p>
+            </div>
+
+            <!-- CTA amélioré -->
+            <a href="#pack" class="group relative inline-flex items-center justify-center px-12 py-6 font-bold text-black transition-all duration-300 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 rounded-full hover:from-yellow-500 hover:via-yellow-600 hover:to-yellow-700 transform hover:-translate-y-1 shadow-2xl shadow-yellow-500/30 hover:shadow-yellow-500/50 animate__animated animate__pulse animate__delay-2s">
+                <span class="relative z-10 text-xl flex items-center gap-3">
+                    <i class="fas fa-bolt"></i>
+                    ACCÉDER AU PACK MAINTENANT
+                    <i class="fas fa-arrow-right group-hover:translate-x-2 transition-transform"></i>
+                </span>
+                <div class="absolute inset-0 w-full h-full bg-yellow-400 scale-0 group-hover:scale-100 transition-transform duration-500 rounded-full"></div>
+            </a>
+            
+            <div class="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-green-500"></i>
+                    <span>Paiement 100% sécurisé</span>
                 </div>
-                <div class="difficulty-card difficile">
-                    <h3 style="color: #dc3545;">Niveau 3</h3>
-                    <div class="time">4s</div>
-                    <p style="color: #dc3545; font-weight: bold;">Difficile</p>
+                <div class="h-4 w-px bg-gray-700"></div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-download text-blue-500"></i>
+                    <span>Téléchargement immédiat</span>
                 </div>
-            </div>
-
-            <p>Ensuite, une grille de drapeaux colorés s'affichera. Repérez et mémorisez les positions du drapeau de la France <span class="france-flag"></span>. Une fois l'affichage terminé, <strong>M. Dath</strong> vous demandera d'entrer les deux positions séparées par un espace.</p>
-
-            <div class="example">
-                <h4 style="color: #856404; margin-bottom: 0.5rem;">📝 Exemple de saisie :</h4>
-                <p>Si vous pensez que les drapeaux français sont aux positions 5 et 12 :</p>
-                <code style="background: #fff; padding: 0.5rem; display: block; margin: 0.5rem 0; border-radius: 5px; border: 1px solid #ffeeba;">
-                    Entrez les positions : 5 12
-                </code>
-            </div>
-
-            <div class="feedback">
-                <p>✨ Après, M. Dath vous donnera le verdict du genre :</p>
-                <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
-                    <li>✅ Si vous avez tout bon</li>
-                    <li>⚠️ Si vous avez une seule position</li>
-                    <li>❌ Si vous avez tout faussé</li>
-                </ul>
-            </div>
-
-            <h2>💭 Retour sur le développement</h2>
-            <div class="dev-section">
-                <p>J'ai eu quelques difficulté avec la fonction <code>rand()</code> pour pouvoir mélanger les positions des drapeaux via le tableau indice. ET pour les couleurs j'ai eu à faire certaines recherche mais maintenant j'ai compris certains truc que j'avais pas compris et améliorer mon esprit programmeur.</p>
-                <p style="margin-top: 1rem;">Le rendu final est assez plaisant à jouer, même avec des outils de programmation basiques utilisant les commandes de base du langage C.</p>
-            </div>
-
-            <h2>🚀 Améliorations prévues</h2>
-            <div style="background: white; padding: 1rem; border-radius: 10px; border: 2px dashed #764ba2;">
-                <p style="margin-bottom: 1rem;">Je compte améliorer ce jeu pendant les vacances en ajoutant :</p>
-                <ul style="list-style-type: none;">
-                    <li style="margin: 0.5rem 0;">🎌 D'autres drapeaux de pays</li>
-                    <li style="margin: 0.5rem 0;">🏆 Un système de 3 manches avec difficulté progressive</li>
-                    <li style="margin: 0.5rem 0;">📊 Un tableau des scores et un classement</li>
-                    <li style="margin: 0.5rem 0;">🖥️ Une interface plus graphique</li>
-                    <li style="margin: 0.5rem 0;">⏱️ Un timer plus précis et bien d'autres chose...</li>
-                </ul>
-            </div>
-
-            <div class="signature">
-                <p style="font-size: 1.2rem; margin-bottom: 0.5rem;"><strong>Alpha Mody Dath</strong></p>
-                <p style="font-size: 1.5rem;">🎯 Bonne chance pour retrouver tous les drapeaux ! 🎉</p>
-                <p style="margin-top: 1rem;">✨✨</p>
+                <div class="h-4 w-px bg-gray-700"></div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-medal text-yellow-500"></i>
+                    <span>Garantie 24 Heures</span>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="footer">
-            <p>© 2025 - Memory des Drapeaux par Alpha Mody Dath</p>
-            <p style="margin-top: 0.5rem; opacity: 0.8;">Développé avec ❤️ en langage C</p>
+    <!-- SECTION PACK -->
+<section id="pack" class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="flex justify-center">
+        <div class="w-full max-w-2xl">
+            <div class="absolute -top-4 right-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                ÉCONOMISEZ 72%
+            </div>
+            
+            <div class="w-full aspect-[3/4] bg-gradient-to-br from-yellow-900 via-yellow-700 to-yellow-500 rounded-xl mb-6 shadow-2xl flex flex-col items-center justify-center p-6 text-center">
+                <div class="text-5xl font-black mb-2">7</div>
+                <div class="text-xl font-bold">EBOOKS</div>
+                <div class="text-sm mt-4 text-yellow-100">Prix conventionnel sans remise: 97€</div>
+                <div class="text-sm mt-4 text-yellow-100">Valeur actuel ( Promo ) : 27€</div>
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-2 text-center">The Business Plan Bundle</h3>
+            <p class="text-gray-400 text-center text-sm mb-6">Pack complet pour maîtriser le business en ligne</p>
+            
+            <div class="text-center mb-6">
+                <p class="text-yellow-500 font-bold text-4xl">27€</p>
+                <p class="text-gray-500 text-lg line-through">97€</p>
+                <p class="text-green-400 text-sm mt-2 font-bold">ÉCONOMISEZ 72%</p>
+            </div>
+            
+            <!-- Bouton d'achat -->
+            <a href="https://buy.stripe.com/fZubJ16bG3m5aip25qaAw01" 
+               target="_blank"
+               class="block w-full py-4 bg-gradient-to-r from-white to-yellow-100 text-black text-center rounded-xl font-bold hover:from-yellow-300 hover:to-yellow-500 transition-all duration-300 transform hover:scale-[1.02] shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40">
+               <div class="flex items-center justify-center gap-3">
+                 <i class="fas fa-shopping-cart"></i>
+                 <span class="text-lg">ACHETER MAINTENANT</span>
+                 <i class="fas fa-arrow-right"></i>
+               </div>
+               <p class="text-xs mt-2 text-gray-600">Paiement sécurisé • Accès instantané</p>
+            </a>
+            
+            
+            <div class="mt-8 pt-6 border-t border-white/10">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2 text-green-400">
+                        <i class="fas fa-lock"></i>
+                        <span class="text-sm">Paiement SSL sécurisé</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fas fa-bolt"></i>
+                        <span>Accès immédiat après paiement</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-400">
+                        <i class="fas fa-headset"></i>
+                        <span>Support client 7j/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>  <!-- Fermeture de w-full max-w-2xl -->
+    </div>      <!-- Fermeture de flex justify-center -->
+</section>      <!-- Fermeture de la section pack -->
+
+<!-- Section Contenu (qui commence après) -->
+<section id="contenu" class="py-20 px-6 max-w-6xl mx-auto">
+    <!-- ... -->
+</section>
+
+            <!-- Section "Contenu du Pack 7 Ebooks" -->
+    <section id="contenu" class="py-20 px-6 max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-4 text-gradient" data-aos="fade-up">
+            <i class="fas fa-book-open mr-3"></i>
+            CONTENU DU PACK 7 EBOOKS
+        </h2>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Découvrez les 7 ebooks qui vont transformer votre approche du business en ligne
+        </p>
+        
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Ebook 1 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">🧠</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Mindset Millionnaire</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> sur la reprogrammation mentale complète pour adopter la mentalité des gagnants.
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
         </div>
     </div>
+    
+    <!-- Ebook 2 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="150">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">📈</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Marketing Digital</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> sur les stratégies réseaux sociaux & publicités pour dominer le digital.
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ebook 3 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="200">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">🛒</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">E-commerce Mastery</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> sur Shopify, Amazon, Dropshipping pour créer votre empire en ligne.
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ebook 4 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="250">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">💰</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Investissement Crypto</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> sur Bitcoin, Altcoins, Trading pour faire travailler votre argent.
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ebook 5 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="100">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">🎯</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Guide de 7 Méthodes</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> avec 7 méthodes pour générer 1k€/mois : Affiliation, Micro-services, Dropshipping...
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ebook 6 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="150">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">🎨</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">Finance Personnelle</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> pour créatifs & freelances : comptabilité, budget, gestion financière.
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ebook 7 - Design amélioré -->
+    <div class="glass-enhanced rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 hover:-translate-y-2 group" data-aos="fade-up" data-aos-delay="200">
+        <div class="p-6">
+            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-600/30 to-yellow-800/20 flex items-center justify-center mb-4">
+                <div class="text-2xl">⚽</div>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-white">TikTok Monétisation Football</h3>
+            <p class="text-gray-400 text-sm mb-4 leading-relaxed">
+                <span class="text-yellow-500 font-semibold">UN EBOOK</span> pour monétiser TikTok dans la niche football et générer 600$/mois.
+            </p>
+            <div class="text-yellow-500 text-sm flex items-center">
+                <i class="fas fa-file-pdf mr-2 text-yellow-400"></i>
+                <span>PDF • </span>
+            </div>
+        </div>
+        <div class="px-6 py-3 bg-gradient-to-r from-yellow-900/20 to-transparent border-t border-white/5">
+            <div class="text-yellow-500 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+        </div>
+    </div>
+</div> <!-- Fermeture du grid principal -->
+        
+        <!-- CTA de la section -->
+        <div class="mt-12 text-center" data-aos="fade-up" data-aos-delay="350">
+            <a href="#pack" class="inline-flex items-center justify-center px-8 py-4 font-bold text-black transition-all duration-300 bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-full hover:from-yellow-500 hover:to-yellow-600 shadow-lg shadow-yellow-500/20">
+                <span class="flex items-center gap-3">
+                    <i class="fas fa-shopping-cart"></i>
+                    ACCÉDER AU PACK 7 EBOOKS MAINTENANT
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </a>
+            <p class="text-gray-500 text-sm mt-4">
+                <i class="fas fa-download text-blue-500 mr-1"></i>
+                Téléchargement immédiat après paiement
+            </p>
+        </div>
+    <section id="temoignage" class="py-24 px-6 max-w-7xl mx-auto" >
+        <!-- Section Témoignages -->
+        <div class="mt-20" data-aos="fade-up">
+            <h3 class="text-3xl font-bold text-center mb-10 text-gradient">
+                <i class="fas fa-comment-dollar mr-3"></i>ILS ONT TRANSFORMÉ LEUR VIE
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Témoignage 1 -->
+                <div class="testimonial-bg glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center font-bold text-white">M</div>
+                        <div>
+                            <h4 class="font-bold">Marc, 28 ans</h4>
+                            <p class="text-yellow-500 text-sm">Entrepreneur • Achat il y a 3 mois</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"J'ai lancé mon agence de marketing après ce pack. Aujourd'hui, je facture 5 000€/mois. Le chapitre sur le mindset a tout changé."</p>
+                </div>
+                
+                <!-- Témoignage 2 -->
+                <div class="testimonial-bg glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center font-bold text-white">S</div>
+                        <div>
+                            <h4 class="font-bold">Sophie, 32 ans</h4>
+                            <p class="text-yellow-500 text-sm">Freelance • Achat il y a 2 mois</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"Les techniques de vente m'ont permis de multiplier mes revenus par 3. J'ai appris à vendre mes services avec confiance."</p>
+                </div>
+                
+                <!-- Témoignage 3 -->
+                <div class="testimonial-bg glass p-6 rounded-2xl">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-full flex items-center justify-center font-bold text-white">T</div>
+                        <div>
+                            <h4 class="font-bold">Thomas, 25 ans</h4>
+                            <p class="text-yellow-500 text-sm">Étudiant • Achat il y a 1 mois</p>
+                        </div>
+                    </div>
+                    <div class="text-yellow-500 mb-3">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic">"Je suis passé de 0 à 2 000€/mois avec le dropshipping grâce au module e-commerce. Tout est expliqué étape par étape."</p>
+                </div>
+            </div>
+        </section>
+    
+
+    <!-- FAQ -->
+    <section id="faq" class="py-20 px-6 max-w-4xl mx-auto">
+        <h3 class="text-3xl font-bold text-center mb-10 text-gradient" data-aos="fade-up">
+            <i class="fas fa-question-circle mr-3"></i>QUESTIONS FRÉQUEMMENT POSÉES
+        </h3>
+        
+        <div class="space-y-4" data-aos="fade-up">
+            <!-- Question 1 -->
+            <div class="glass-enhanced p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(1)">
+                    <span class="font-bold text-lg">Comment vais-je recevoir les ebooks ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-1"></i>
+                </button>
+                <div id="faq-content-1" class="mt-4 text-gray-400 hidden">
+                    Immédiatement après votre paiement, vous recevrez un email avec un lien de téléchargement pour le pack complet (fichier ZIP). Vous pourrez également accéder aux fichiers depuis votre compte client Lemon Squeezy.
+                </div>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="glass-enhanced p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(2)">
+                    <span class="font-bold text-lg">Puis-je payer par PayPal ou carte bancaire ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-2"></i>
+                </button>
+                <div id="faq-content-2" class="mt-4 text-gray-400 hidden">
+                    Oui ! Nous acceptons toutes les cartes bancaires (Visa, Mastercard, American Express), PayPal, et Apple Pay. Le paiement est 100% sécurisé via Lemon Squeezy.
+                </div>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="glass-enhanced p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(3)">
+                    <span class="font-bold text-lg">Les ebooks sont-ils en français ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-3"></i>
+                </button>
+                <div id="faq-content-3" class="mt-4 text-gray-400 hidden">
+                    Oui, tous les ebooks sont écrits en français, avec des exemples concrets adaptés au marché francophone.
+                </div>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="glass-enhanced p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(4)">
+                    <span class="font-bold text-lg">Y a-t-il un support après l'achat ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-4"></i>
+                </button>
+                <div id="faq-content-4" class="mt-4 text-gray-400 hidden">
+                    Absolument ! Vous avez accès à notre support par email 7j/7. Nous répondons généralement dans les 24 heures.
+                </div>
+            </div>
+            
+            <!-- Question 5 - AJOUTÉ: TikTok Monetization -->
+            <div class="glass-enhanced p-6 rounded-2xl">
+                <button class="flex justify-between items-center w-full text-left" onclick="toggleFAQ(5)">
+                    <span class="font-bold text-lg">Est-ce que le pack couvre la monétisation TikTok ?</span>
+                    <i class="fas fa-chevron-down transition-transform" id="faq-icon-5"></i>
+                </button>
+                <div id="faq-content-5" class="mt-4 text-gray-400 hidden">
+                    Oui ! Le pack inclut un ebook complet sur la monétisation TikTok, couvrant les programmes de récompense, le Creator Fund, la monétisation en direct, et comment générer jusqu'à 600$/mois dans la niche football.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer amélioré -->
+    <footer class="py-16 px-6 border-t border-white/10 bg-gradient-to-b from-transparent to-black/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                <!-- Colonne 1 -->
+                <div>
+                    <h4 class="text-2xl font-bold mb-6 text-gradient">THE BUSINESS PLAN</h4>
+                    <p class="text-gray-500 mb-6">Transformez votre vie financière avec notre pack ultime de 7 ebooks sur le business en ligne.</p>
+                    <div class="flex gap-4 text-2xl">
+                        <a href="https://tiktok.com" target="_blank" class="hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" class="hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://twitter.com" target="_blank" class="hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="mailto:contact@example.com" class="hover:text-yellow-500 transition-colors">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Colonne 2 -->
+                <div>
+                    <h5 class="text-lg font-bold mb-6">INFORMATIONS</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Mentions légales</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Politique de confidentialité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">Conditions de vente</a></li>
+                        <li><a href="#faq" class="text-gray-400 hover:text-yellow-500 transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Colonne 3 -->
+                <div>
+                    <h5 class="text-lg font-bold mb-6">CONTACT</h5>
+                    <p class="text-gray-400 mb-4">
+                        <i class="fas fa-envelope mr-2 text-yellow-500"></i>
+                        dathalphamody987@gmail.com
+                    </p>
+                    <p class="text-gray-400">
+                        <i class="fas fa-headset mr-2 text-yellow-500"></i>
+                        Support : Réponse sous 24h
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Séparateur -->
+            <div class="border-t border-white/10 pt-8 text-center">
+                <p class="text-gray-600 text-sm">
+                    © 2024 THE BUSINESS PLAN | L'Elite. Tous droits réservés.
+                    <span class="block mt-2">
+                        Site conçu pour transformer votre vie financière
+                    </span>
+                </p>
+                
+                <div class="mt-6 flex flex-wrap justify-center gap-4 text-xs text-gray-500">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-lock"></i>
+                        <span>Paiement sécurisé SSL</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-shipping-fast"></i>
+                        <span>Livraison instantanée</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-headset"></i>
+                        <span>Support 7j/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialisation des animations
+        AOS.init({ 
+            duration: 1000, 
+            once: true,
+            offset: 100
+        });
+
+        // Timer de l'urgence
+        let totalSeconds = 2 * 3600 + 45 * 60 + 12;
+        
+        function updateTimer() {
+            totalSeconds--;
+            if (totalSeconds < 0) {
+                totalSeconds = 2 * 3600 + 45 * 60 + 12;
+            }
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            
+            // Animation pulse sur les secondes
+            const secondsElement = document.getElementById('seconds');
+            secondsElement.classList.remove('pulse');
+            void secondsElement.offsetWidth; // Trigger reflow
+            secondsElement.classList.add('pulse');
+        }
+        
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Simulation de notifications (Social Proof)
+        const names = ["Thomas", "Sarah", "Kevin", "Amine", "Léa", "Marc", "Sophie", "Alexandre", "Julie", "Nicolas"];
+        const times = ["quelques secondes", "1 minute", "2 minutes", "3 minutes", "5 minutes"];
+        
+        function showNotification() {
+            const notif = document.getElementById('notif');
+            const randomName = names[Math.floor(Math.random() * names.length)];
+            const randomTime = times[Math.floor(Math.random() * times.length)];
+            
+            // Changer aussi l'initiale
+            const initialElement = notif.querySelector('.w-10.h-10');
+            initialElement.textContent = randomName.charAt(0);
+            
+            notif.querySelector('p').innerHTML = `${randomName} vient d'acheter le pack <br><span class="font-bold text-yellow-500">il y a ${randomTime}</span>`;
+            notif.style.transform = "translateY(0)";
+            
+            setTimeout(() => { 
+                notif.style.transform = "translateY(160px)"; 
+            }, 4000);
+        }
+        
+        // Afficher une notification immédiatement
+        setTimeout(showNotification, 1000);
+        
+        // Puis toutes les 10-20 secondes
+        setInterval(showNotification, 10000 + Math.random() * 10000);
+        
+        // Scroll doux pour les ancres
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fonction FAQ améliorée pour gérer la nouvelle question
+        function toggleFAQ(num) {
+            const content = document.getElementById(`faq-content-${num}`);
+            const icon = document.getElementById(`faq-icon-${num}`);
+            
+            if (!content || !icon) return;
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Vérifier si c'est un mobile pour ajuster les animations
+        if (window.innerWidth < 768) {
+            AOS.init({
+                duration: 800,
+                once: true,
+                disable: 'phone'
+            });
+        }
+
+        // Ajout d'un effet de confetti au clic sur le CTA
+        document.querySelectorAll('a[href*="lemonsqueezy"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Ici vous pouvez ajouter du tracking Google Analytics
+                console.log('Clic sur le bouton d\'achat');
+                
+                // Pour l'instant, juste un feedback visuel
+                this.classList.add('animate__animated', 'animate__pulse');
+                setTimeout(() => {
+                    this.classList.remove('animate__animated', 'animate__pulse');
+                }, 300);
+            });
+        });
+    </script>
+    <script>
+const menuBtn = document.getElementById("menuBtn");
+const menu = document.getElementById("menuDropdown");
+
+menuBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    if (menu.classList.contains("hidden")) {
+        menu.classList.remove("hidden");
+        setTimeout(() => {
+            menu.classList.remove("scale-95", "opacity-0");
+            menu.classList.add("scale-100", "opacity-100");
+        }, 10);
+    } else {
+        closeMenu();
+    }
+});
+
+function closeMenu() {
+    menu.classList.add("scale-95", "opacity-0");
+    menu.classList.remove("scale-100", "opacity-100");
+    setTimeout(() => {
+        menu.classList.add("hidden");
+    }, 200);
+}
+
+document.addEventListener("click", () => {
+    if (!menu.classList.contains("hidden")) {
+        closeMenu();
+    }
+});
+</script>
+
 </body>
 </html>
