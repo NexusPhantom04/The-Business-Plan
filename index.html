@@ -834,13 +834,15 @@
         <div class="p-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="space-y-4">
-                    <div class="w-full aspect-[3/4] rounded-xl shadow-2xl overflow-hidden border-2 border-yellow-500/50 relative group">
-                        <img id="coverImage" src="" alt="Couverture de l'ebook" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-br from-yellow-800 via-yellow-600 to-yellow-400 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div id="coverEmojiFallback" class="text-6xl mb-3">🧠</div>
-                            <div id="coverTitleFallback" class="text-xl font-bold text-white">Mindset Millionnaire</div>
-                        </div>
-                    </div>
+                    <div class="w-full aspect-[3/4] rounded-xl shadow-2xl overflow-hidden border-2 border-yellow-500/50 bg-gradient-to-br from-yellow-800 via-yellow-600 to-yellow-400 flex items-center justify-center relative">
+    <img id="coverImage" src="" alt="Couverture de l'ebook" class="w-full h-full object-cover absolute inset-0" onerror="this.style.display='none'; document.getElementById('coverFallback').style.display='flex';">
+    
+    <!-- Fallback visible uniquement si l'image ne charge pas -->
+    <div id="coverFallback" class="hidden flex-col items-center justify-center p-4 text-center w-full h-full">
+        <div id="coverEmojiFallback" class="text-6xl mb-3">🧠</div>
+        <div id="coverTitleFallback" class="text-xl font-bold text-white">Mindset Millionnaire</div>
+    </div>
+</div>
                     <div class="glass-enhanced rounded-xl p-4">
                         <span id="modalPages" class="hidden">85</span>
                         <h4 class="font-bold text-yellow-500 mb-3">À propos de cet ebook</h4>
@@ -1326,7 +1328,7 @@ L’objectif, c’est la liberté financière.`, list: ["Choisir un exchange fia
             id: 5, title: "7 idées de Business en ligne entierement lucratifs", emoji: "💡", coverImage: "image-cover/Image collée.png",
             pages: 10, chapters: 7, level: "Tous niveaux",
             description: "7 méthodes éprouvées pour générer vos premiers 1000€ en ligne.",
-            page1: { title: "Introduction aux 7 méthodes", content: "Il n'y a pas une seule façon de gagner de l'argent en ligne, mais plusieurs. Ce livre vous présente 7 méthodes testées et approuvées.", quote: "La diversification est la clé de la stabilité financière." },
+            page1: { title: "Introduction aux 7 méthodes", content: "Il n'y a pas une seule façon de gagner de l'argent en ligne, mais plusieurs. Ce livre vous présente 7 méthodes testées et approuvées......", quote: "La diversification est la clé de la stabilité financière." },
             page2: { title: "SOMMAIRE", content: `
 -Marketing d’Affiliation
 
@@ -1534,16 +1536,20 @@ Si tu veux, je peux maintenant :
     };
 
     function openEbookModal(ebookId) {
-        const ebook = ebookData[ebookId] || ebookData[1];
-        document.getElementById('modalEbookTitle').textContent = ebook.title;
+            const ebook = ebookData[ebookId] || ebookData[1];
         const coverImage = document.getElementById('coverImage');
-        coverImage.src = ebook.coverImage || '';
-        coverImage.onerror = function() {
-            this.style.display = 'none';
-            document.querySelector('.absolute.inset-0').classList.remove('opacity-0');
-        };
-        document.getElementById('coverEmojiFallback').textContent = ebook.emoji;
-        document.getElementById('coverTitleFallback').textContent = ebook.title;
+coverImage.src = ebook.coverImage || '';
+coverImage.style.display = 'block';
+const coverFallback = document.getElementById('coverFallback');
+coverFallback.style.display = 'none';
+
+coverImage.onerror = function() {
+    this.style.display = 'none';
+    coverFallback.style.display = 'flex';
+};
+
+document.getElementById('coverEmojiFallback').textContent = ebook.emoji;
+document.getElementById('coverTitleFallback').textContent = ebook.title;
         document.getElementById('modalPages').textContent = ebook.pages;
         document.getElementById('modalPages2').textContent = ebook.pages;
         document.getElementById('modalChapters').textContent = ebook.chapters;
