@@ -211,6 +211,134 @@ app.get('/api/admin/stats/overview', requireAuth, (req, res) => {
         });
     });
 });
+// ============================================
+// STATISTIQUES DÉTAILLÉES (AJOUTE CECI)
+// ============================================
+
+// Statistiques par pays
+app.get('/api/admin/stats/countries', requireAuth, (req, res) => {
+    db.all(`
+        SELECT country, COUNT(*) as count, COUNT(DISTINCT session_id) as uniques
+        FROM visits 
+        GROUP BY country 
+        ORDER BY count DESC
+        LIMIT 20
+    `, [], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur stats pays:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows || []);
+    });
+});
+
+// Statistiques par appareil
+app.get('/api/admin/stats/devices', requireAuth, (req, res) => {
+    db.all(`
+        SELECT device_type, COUNT(*) as count 
+        FROM visits 
+        GROUP BY device_type
+    `, [], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur stats appareils:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows || []);
+    });
+});
+
+// Statistiques par navigateur
+app.get('/api/admin/stats/browsers', requireAuth, (req, res) => {
+    db.all(`
+        SELECT browser, COUNT(*) as count 
+        FROM visits 
+        GROUP BY browser 
+        ORDER BY count DESC
+    `, [], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur stats navigateurs:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows || []);
+    });
+});
+
+// Pages les plus visitées
+app.get('/api/admin/stats/pages', requireAuth, (req, res) => {
+    db.all(`
+        SELECT page_visited, COUNT(*) as views, COUNT(DISTINCT session_id) as uniques
+        FROM visits 
+        GROUP BY page_visited 
+        ORDER BY views DESC
+        LIMIT 20
+    `, [], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur stats pages:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows || []);
+    });
+});
+
+// Trafic dans le temps (pour les graphiques)
+app.get('/api/admin/stats/timeline', requireAuth, (req, res) => {
+    const range = req.query.range || '7d';
+    let groupBy = 'DATE(visit_time)';
+    let limit = 7;
+    
+    if (range === '24h') {
+        groupBy = "strftime('%H', visit_time) || ':00'";
+        limit = 24;
+    } else if (range === '30d') {
+        groupBy = 'DATE(visit_time)';
+        limit = 30;
+    }
+    
+    db.all(`
+        SELECT ${groupBy} as time_period, COUNT(*) as visits
+        FROM visits 
+        GROUP BY ${groupBy}
+        ORDER BY visit_time DESC
+        LIMIT ?
+    `, [limit], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur timeline:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json((rows || []).reverse());
+    });
+});
+
+// Dernières ventes
+app.get('/api/admin/sales/latest', requireAuth, (req, res) => {
+    db.all(`
+        SELECT * FROM sales 
+        WHERE status = 'paid' OR status = 'free'
+        ORDER BY created_at DESC 
+        LIMIT 20
+    `, [], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur ventes:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows || []);
+    });
+});
+
+// Dernières visites
+app.get('/api/admin/visits/latest', requireAuth, (req, res) => {
+    db.all(`
+        SELECT * FROM visits 
+        ORDER BY visit_time DESC 
+        LIMIT 50
+    `, [], (err, rows) => {
+        if (err) {
+            console.error('❌ Erreur visites:', err);
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows || []);
+    });
+});
 
 // ============================================
 // 5. TÉLÉCHARGEMENT
