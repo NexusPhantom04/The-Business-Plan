@@ -87,13 +87,26 @@ app.use(useragent.express());
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use('/api/', limiter);
 
+// Session pour l'authentification admin - VERSION CORRIGÉE POUR PRODUCTION
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'secret',
+    secret: process.env.SESSION_SECRET || 'une_chaine_secrete_tres_longue_et_complexe_123456789',
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: process.env.NODE_ENV === 'production', httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
+    cookie: {
+        secure: false, // ← CHANGE CECI à false pour Render (pas de HTTPS interne)
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 24 heures
+        sameSite: 'lax'
+    },
+    name: 'businessplan.sid' // Nom personnalisé pour le cookie
 }));
-
+// Middleware de débogage des sessions (à ajouter APRÈS la config session)
+app.use((req, res, next) => {
+    console.log('Session ID:', req.sessionID);
+    console.log('Session:', req.session);
+    console.log('Authenticated:', req.session?.authenticated);
+    next();
+});
 app.use(helmet({ contentSecurityPolicy: false }));
 app.use(express.static(path.join(__dirname, '.')));
 
