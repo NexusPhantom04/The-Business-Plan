@@ -1819,6 +1819,23 @@ if (ebook.page3) {
         if (e.key === 'Escape') closeEbookModal();
     });
 </script>
+<!-- Tracker Analytics -->
+<script>
+    // Fonction pour tracker les visites
+    async function trackVisit() {
+        try {
+            await fetch('/track/visit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ page: window.location.pathname })
+            });
+        } catch (err) {
+            console.log('Tracking OK'); // Ignorer les erreurs
+        }
+    }
 
+    // Tracker la visite immédiatement
+    trackVisit();
+</script>
 </body>
 </html>
