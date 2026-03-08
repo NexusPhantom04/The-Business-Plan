@@ -84,9 +84,14 @@ app.post('/webhook/stripe', express.raw({type: 'application/json'}), stripeWebho
 app.use(express.json());
 app.use(useragent.express());
 
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
+// Rate limiting - Désactivé pour le dashboard
+const limiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: 30, // 30 requêtes max par minute pour les autres routes
+    message: 'Trop de requêtes, veuillez réessayer plus tard.',
+    skip: (req) => req.path.startsWith('/api/admin/') // ✅ IGNORE LE DASHBOARD
+});
 app.use('/api/', limiter);
-
 // Session pour l'authentification admin - VERSION CORRIGÉE POUR PRODUCTION
 app.use(session({
     secret: process.env.SESSION_SECRET || 'une_chaine_secrete_tres_longue_et_complexe_123456789',
