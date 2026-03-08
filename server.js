@@ -14,6 +14,8 @@ const fs = require('fs');
 const axios = require('axios');
 
 const app = express();
+// ✅ Ajoute cette ligne pour faire confiance au proxy Render
+app.set('trust proxy', 1); // ou true
 
 // ============================================
 // 1. CONFIGURATION DE LA BASE DE DONNÉES
@@ -85,11 +87,17 @@ app.use(express.json());
 app.use(useragent.express());
 
 // Rate limiting - Désactivé pour le dashboard
+// Rate limiting - Configuration spéciale pour Render
 const limiter = rateLimit({
     windowMs: 60 * 1000, // 1 minute
-    max: 30, // 30 requêtes max par minute pour les autres routes
+    max: 60, // 60 requêtes par minute
     message: 'Trop de requêtes, veuillez réessayer plus tard.',
-    skip: (req) => req.path.startsWith('/api/admin/') // ✅ IGNORE LE DASHBOARD
+    // Désactiver complètement pour les routes du dashboard
+    skip: (req) => req.path.startsWith('/api/admin/'),
+    // Important pour Render : utiliser l'IP réelle du client
+    keyGenerator: (req) => {
+        return req.headers['x-forwarded-for'] || req.ip || req.connection.remoteAddress;
+    }
 });
 app.use('/api/', limiter);
 // Session pour l'authentification admin - VERSION CORRIGÉE POUR PRODUCTION
