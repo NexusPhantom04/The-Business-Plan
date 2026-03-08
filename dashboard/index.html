@@ -9,33 +9,89 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Styles personnalisés pour le scroll compact */
-        .compact-scroll {
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 8px;
+        /* Layout fixe - HAUTEUR DÉFINIE */
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
-        .compact-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .compact-scroll::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-        .compact-scroll::-webkit-scrollbar-thumb {
-            background: rgba(212, 175, 55, 0.3);
-            border-radius: 10px;
-        }
-        .compact-card {
-            min-height: 100px;
+        
+        body {
             display: flex;
             flex-direction: column;
         }
+        
+        #dashboardPage {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .dashboard-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            scroll-behavior: smooth;
+        }
+        
+        /* HAUTEURS FIXES pour chaque section */
+        .kpi-section {
+            height: 100px;
+            margin-bottom: 1rem;
+        }
+        
+        .chart-section {
+            height: 220px;
+            margin-bottom: 1rem;
+        }
+        
+        .stats-section {
+            height: 250px;
+            margin-bottom: 1rem;
+        }
+        
+        .tables-section {
+            height: 300px;
+            margin-bottom: 1rem;
+        }
+        
+        /* Scroll interne pour les listes */
+        .scrollable-list {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        .scrollable-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .scrollable-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+        
+        .scrollable-list::-webkit-scrollbar-thumb {
+            background: rgba(212, 175, 55, 0.3);
+            border-radius: 10px;
+        }
+        
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 1rem;
+            height: 100%;
         }
+        
+        .kpi-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
         @media (max-width: 1024px) {
             .kpi-grid {
                 grid-template-columns: repeat(3, 1fr);
@@ -48,7 +104,7 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body class="bg-gray-900 text-white">
     <!-- Page de login -->
     <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
         <div class="glass-enhanced p-8 rounded-2xl w-full max-w-md border border-yellow-500/30">
@@ -61,19 +117,19 @@
                 <div>
                     <label class="block text-gray-400 mb-2 text-sm">Nom d'utilisateur</label>
                     <input type="text" id="username" 
-                           class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-yellow-500 focus:outline-none transition-all"
+                           class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-yellow-500 focus:outline-none"
                            placeholder="admin" value="admin">
                 </div>
                 
                 <div>
                     <label class="block text-gray-400 mb-2 text-sm">Mot de passe</label>
                     <input type="password" id="password" 
-                           class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-yellow-500 focus:outline-none transition-all"
+                           class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-yellow-500 focus:outline-none"
                            placeholder="••••••••" value="admin123">
                 </div>
                 
                 <button onclick="login()" id="loginBtn"
-                        class="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold py-3 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                        class="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold py-3 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all flex items-center justify-center gap-2">
                     <i class="fas fa-sign-in-alt"></i>
                     <span>Se connecter</span>
                 </button>
@@ -93,7 +149,7 @@
 
     <!-- Dashboard principal -->
     <div id="dashboardPage" class="hidden">
-        <!-- Barre de navigation -->
+        <!-- Barre de navigation FIXE -->
         <nav class="glass border-b border-white/10 sticky top-0 z-50">
             <div class="max-w-7xl mx-auto px-4 py-3">
                 <div class="flex justify-between items-center">
@@ -121,140 +177,145 @@
             </div>
         </nav>
 
-        <div class="max-w-7xl mx-auto px-4 py-4">
-            <!-- Filtres de temps compacts -->
-            <div class="flex flex-wrap gap-1 mb-4">
-                <button onclick="loadData('24h')" class="time-filter active px-3 py-1.5 text-sm rounded-lg bg-yellow-600 text-white">24h</button>
-                <button onclick="loadData('7d')" class="time-filter px-3 py-1.5 text-sm rounded-lg bg-gray-800 hover:bg-gray-700">7j</button>
-                <button onclick="loadData('30d')" class="time-filter px-3 py-1.5 text-sm rounded-lg bg-gray-800 hover:bg-gray-700">30j</button>
-                <button onclick="loadData('all')" class="time-filter px-3 py-1.5 text-sm rounded-lg bg-gray-800 hover:bg-gray-700">Tout</button>
-            </div>
+        <!-- Contenu SCROLLABLE (mais sections FIXES) -->
+        <div class="dashboard-content">
+            <div class="max-w-7xl mx-auto">
+                <!-- Filtres de temps -->
+                <div class="flex flex-wrap gap-1 mb-4">
+                    <button onclick="loadData('24h')" class="time-filter active px-3 py-1.5 text-sm rounded-lg bg-yellow-600 text-white">24h</button>
+                    <button onclick="loadData('7d')" class="time-filter px-3 py-1.5 text-sm rounded-lg bg-gray-800 hover:bg-gray-700">7j</button>
+                    <button onclick="loadData('30d')" class="time-filter px-3 py-1.5 text-sm rounded-lg bg-gray-800 hover:bg-gray-700">30j</button>
+                    <button onclick="loadData('all')" class="time-filter px-3 py-1.5 text-sm rounded-lg bg-gray-800 hover:bg-gray-700">Tout</button>
+                </div>
 
-            <!-- KPI en ligne compact -->
-            <div class="kpi-grid mb-4">
-                <div class="glass-enhanced p-3 rounded-lg compact-card">
-                    <p class="text-gray-400 text-xs">Visites</p>
-                    <p id="totalVisits" class="text-2xl font-bold">0</p>
-                </div>
-                <div class="glass-enhanced p-3 rounded-lg compact-card">
-                    <p class="text-gray-400 text-xs">Uniques</p>
-                    <p id="uniqueVisitors" class="text-2xl font-bold">0</p>
-                </div>
-                <div class="glass-enhanced p-3 rounded-lg compact-card">
-                    <p class="text-gray-400 text-xs">Ventes</p>
-                    <p id="totalSales" class="text-2xl font-bold">0</p>
-                </div>
-                <div class="glass-enhanced p-3 rounded-lg compact-card">
-                    <p class="text-gray-400 text-xs">CA</p>
-                    <p id="totalRevenue" class="text-2xl font-bold">0€</p>
-                </div>
-                <div class="glass-enhanced p-3 rounded-lg compact-card">
-                    <p class="text-gray-400 text-xs">Conversion</p>
-                    <p id="conversionRate" class="text-2xl font-bold">0%</p>
-                </div>
-            </div>
-
-            <!-- Graphique compact + Top Pays -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-                <div class="lg:col-span-2 glass-enhanced p-4 rounded-lg">
-                    <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                        <i class="fas fa-chart-line text-yellow-500 text-xs"></i>
-                        Trafic
-                    </h3>
-                    <canvas id="trafficChart" height="150"></canvas>
-                </div>
-                <div class="glass-enhanced p-4 rounded-lg">
-                    <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                        <i class="fas fa-globe text-yellow-500 text-xs"></i>
-                        Top Pays
-                    </h3>
-                    <div id="countriesList" class="compact-scroll space-y-1 text-sm">
-                        <div class="text-center text-gray-500 py-2">Chargement...</div>
+                <!-- KPI - HAUTEUR FIXE -->
+                <div class="kpi-section">
+                    <div class="kpi-grid">
+                        <div class="glass-enhanced p-3 rounded-lg kpi-card">
+                            <p class="text-gray-400 text-xs">Visites</p>
+                            <p id="totalVisits" class="text-2xl font-bold">0</p>
+                        </div>
+                        <div class="glass-enhanced p-3 rounded-lg kpi-card">
+                            <p class="text-gray-400 text-xs">Uniques</p>
+                            <p id="uniqueVisitors" class="text-2xl font-bold">0</p>
+                        </div>
+                        <div class="glass-enhanced p-3 rounded-lg kpi-card">
+                            <p class="text-gray-400 text-xs">Ventes</p>
+                            <p id="totalSales" class="text-2xl font-bold">0</p>
+                        </div>
+                        <div class="glass-enhanced p-3 rounded-lg kpi-card">
+                            <p class="text-gray-400 text-xs">CA</p>
+                            <p id="totalRevenue" class="text-2xl font-bold">0€</p>
+                        </div>
+                        <div class="glass-enhanced p-3 rounded-lg kpi-card">
+                            <p class="text-gray-400 text-xs">Conversion</p>
+                            <p id="conversionRate" class="text-2xl font-bold">0%</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Stats détaillées compactes -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                <div class="glass-enhanced p-4 rounded-lg">
-                    <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                        <i class="fas fa-mobile-alt text-yellow-500 text-xs"></i>
-                        Appareils
-                    </h3>
-                    <div id="devicesList" class="compact-scroll space-y-1 text-sm">
-                        <div class="text-center text-gray-500 py-2">Chargement...</div>
+                <!-- Graphique + Top Pays - HAUTEUR FIXE -->
+                <div class="chart-section grid grid-cols-1 lg:grid-cols-3 gap-4">
+                    <div class="lg:col-span-2 glass-enhanced p-4 rounded-lg h-full">
+                        <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
+                            <i class="fas fa-chart-line text-yellow-500 text-xs"></i>
+                            Trafic
+                        </h3>
+                        <canvas id="trafficChart" height="140"></canvas>
+                    </div>
+                    <div class="glass-enhanced p-4 rounded-lg h-full">
+                        <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
+                            <i class="fas fa-globe text-yellow-500 text-xs"></i>
+                            Top Pays
+                        </h3>
+                        <div id="countriesList" class="scrollable-list text-sm">
+                            <div class="text-center text-gray-500 py-2">Chargement...</div>
+                        </div>
                     </div>
                 </div>
-                <div class="glass-enhanced p-4 rounded-lg">
-                    <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                        <i class="fas fa-compass text-yellow-500 text-xs"></i>
-                        Navigateurs
-                    </h3>
-                    <div id="browsersList" class="compact-scroll space-y-1 text-sm">
-                        <div class="text-center text-gray-500 py-2">Chargement...</div>
+
+                <!-- Stats détaillées - HAUTEUR FIXE -->
+                <div class="stats-section grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="glass-enhanced p-4 rounded-lg h-full">
+                        <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
+                            <i class="fas fa-mobile-alt text-yellow-500 text-xs"></i>
+                            Appareils
+                        </h3>
+                        <div id="devicesList" class="scrollable-list text-sm">
+                            <div class="text-center text-gray-500 py-2">Chargement...</div>
+                        </div>
+                    </div>
+                    <div class="glass-enhanced p-4 rounded-lg h-full">
+                        <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
+                            <i class="fas fa-compass text-yellow-500 text-xs"></i>
+                            Navigateurs
+                        </h3>
+                        <div id="browsersList" class="scrollable-list text-sm">
+                            <div class="text-center text-gray-500 py-2">Chargement...</div>
+                        </div>
+                    </div>
+                    <div class="glass-enhanced p-4 rounded-lg h-full lg:col-span-2">
+                        <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
+                            <i class="fas fa-file-alt text-yellow-500 text-xs"></i>
+                            Pages
+                        </h3>
+                        <div id="pagesList" class="scrollable-list text-sm">
+                            <div class="text-center text-gray-500 py-2">Chargement...</div>
+                        </div>
                     </div>
                 </div>
-                <div class="glass-enhanced p-4 rounded-lg lg:col-span-2">
+
+                <!-- Dernières visites - HAUTEUR FIXE -->
+                <div class="tables-section glass-enhanced p-4 rounded-lg mb-4">
                     <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                        <i class="fas fa-file-alt text-yellow-500 text-xs"></i>
-                        Pages
+                        <i class="fas fa-history text-yellow-500 text-xs"></i>
+                        Dernières visites
                     </h3>
-                    <div id="pagesList" class="compact-scroll space-y-1 text-sm">
-                        <div class="text-center text-gray-500 py-2">Chargement...</div>
+                    <div class="h-[calc(100%-30px)] overflow-y-auto">
+                        <table class="w-full text-xs">
+                            <thead class="sticky top-0 bg-gray-900">
+                                <tr class="text-left text-gray-400 border-b border-white/10">
+                                    <th class="pb-2">Pays</th>
+                                    <th class="pb-2">Ville</th>
+                                    <th class="pb-2">Appareil</th>
+                                    <th class="pb-2 hidden md:table-cell">Navigateur</th>
+                                    <th class="pb-2">Page</th>
+                                    <th class="pb-2">Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="latestVisits" class="text-gray-300">
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            </div>
 
-            <!-- Dernières visites compactes -->
-            <div class="glass-enhanced p-4 rounded-lg mb-4">
-                <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                    <i class="fas fa-history text-yellow-500 text-xs"></i>
-                    Dernières visites
-                </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs">
-                        <thead>
-                            <tr class="text-left text-gray-400 border-b border-white/10">
-                                <th class="pb-2">Pays</th>
-                                <th class="pb-2">Ville</th>
-                                <th class="pb-2">Appareil</th>
-                                <th class="pb-2 hidden md:table-cell">Navigateur</th>
-                                <th class="pb-2">Page</th>
-                                <th class="pb-2">Date</th>
-                            </tr>
-                        </thead>
-                        <tbody id="latestVisits" class="text-gray-300">
-                            <tr>
-                                <td colspan="6" class="text-center py-4">Chargement...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Dernières ventes compactes -->
-            <div class="glass-enhanced p-4 rounded-lg">
-                <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
-                    <i class="fas fa-euro-sign text-yellow-500 text-xs"></i>
-                    Ventes
-                </h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs">
-                        <thead>
-                            <tr class="text-left text-gray-400 border-b border-white/10">
-                                <th class="pb-2">Client</th>
-                                <th class="pb-2 hidden md:table-cell">Email</th>
-                                <th class="pb-2">Montant</th>
-                                <th class="pb-2">Date</th>
-                                <th class="pb-2">Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody id="latestSales" class="text-gray-300">
-                            <tr>
-                                <td colspan="5" class="text-center py-4">Chargement...</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- Dernières ventes - HAUTEUR FIXE -->
+                <div class="tables-section glass-enhanced p-4 rounded-lg">
+                    <h3 class="text-sm font-bold mb-2 flex items-center gap-1">
+                        <i class="fas fa-euro-sign text-yellow-500 text-xs"></i>
+                        Ventes
+                    </h3>
+                    <div class="h-[calc(100%-30px)] overflow-y-auto">
+                        <table class="w-full text-xs">
+                            <thead class="sticky top-0 bg-gray-900">
+                                <tr class="text-left text-gray-400 border-b border-white/10">
+                                    <th class="pb-2">Client</th>
+                                    <th class="pb-2 hidden md:table-cell">Email</th>
+                                    <th class="pb-2">Montant</th>
+                                    <th class="pb-2">Date</th>
+                                    <th class="pb-2">Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody id="latestSales" class="text-gray-300">
+                                <tr>
+                                    <td colspan="5" class="text-center py-4">Chargement...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
