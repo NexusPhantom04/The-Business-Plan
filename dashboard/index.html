@@ -49,9 +49,46 @@
     </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen">
-    <!-- Page de login (inchangée) -->
+    <!-- Page de login -->
     <div id="loginPage" class="min-h-screen flex items-center justify-center p-4">
-        <!-- ... (garder le même code de login) ... -->
+        <div class="glass-enhanced p-8 rounded-2xl w-full max-w-md border border-yellow-500/30">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gradient mb-2">THE BUSINESS PLAN</h1>
+                <p class="text-gray-400">Dashboard Administrateur</p>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-gray-400 mb-2 text-sm">Nom d'utilisateur</label>
+                    <input type="text" id="username" 
+                           class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-yellow-500 focus:outline-none transition-all"
+                           placeholder="admin" value="admin">
+                </div>
+                
+                <div>
+                    <label class="block text-gray-400 mb-2 text-sm">Mot de passe</label>
+                    <input type="password" id="password" 
+                           class="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-yellow-500 focus:outline-none transition-all"
+                           placeholder="••••••••" value="admin123">
+                </div>
+                
+                <button onclick="login()" id="loginBtn"
+                        class="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black font-bold py-3 rounded-lg hover:from-yellow-600 hover:to-yellow-700 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>Se connecter</span>
+                </button>
+                
+                <div id="loginError" class="text-red-500 text-sm text-center hidden bg-red-500/10 p-3 rounded-lg">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    Identifiants incorrects
+                </div>
+                
+                <div id="loginServerError" class="text-red-500 text-sm text-center hidden bg-red-500/10 p-3 rounded-lg">
+                    <i class="fas fa-exclamation-circle mr-2"></i>
+                    Erreur de connexion au serveur
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Dashboard principal -->
