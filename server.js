@@ -76,25 +76,35 @@ function initDatabase() {
     `);
 
     // Table des utilisateurs admin
-    db.run(`
-        CREATE TABLE IF NOT EXISTS admin_users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE,
-            password_hash TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )
-    `);
-
-    // Créer un admin par défaut
-    const bcrypt = require('bcrypt');
-    const defaultPassword = 'admin123';
-    const hash = bcrypt.hashSync(defaultPassword, 10);
-    
-    db.run(`INSERT OR IGNORE INTO admin_users (username, password_hash) VALUES (?, ?)`, 
-        ['admin', hash]);
-    
-    console.log('✅ Tables initialisées');
-}
+    // Table des utilisateurs admin
+db.run(`
+    CREATE TABLE IF NOT EXISTS admin_users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE,
+        password_hash TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+`, function(err) {
+    if (err) {
+        console.error('❌ Erreur création table admin:', err);
+    } else {
+        console.log('✅ Table admin_users créée');
+        
+        // Créer un admin par défaut (seulement si la table est créée)
+        const bcrypt = require('bcrypt');
+        const defaultPassword = 'admin123';
+        const hash = bcrypt.hashSync(defaultPassword, 10);
+        
+        db.run(`INSERT OR IGNORE INTO admin_users (username, password_hash) VALUES (?, ?)`, 
+            ['admin', hash], function(err) {
+                if (err) {
+                    console.error('❌ Erreur création admin:', err);
+                } else {
+                    console.log('✅ Admin par défaut créé');
+                }
+        });
+    }
+});
 
 // ============================================
 // 2. MIDDLEWARES (ORDRE CRITIQUE)
