@@ -215,10 +215,11 @@
             THE BUSINESS PLAN
         </div>
         <div class="relative flex items-center gap-4">
-            <a href="#pack"
-               class="hidden sm:inline-block px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-full font-bold hover:from-yellow-600 hover:to-yellow-800 transition-all">
-                Acheter
-            </a>
+            <a href="https://buy.stripe.com/fZubJ16bG3m5aip25qaAw01"
+   target="_blank"
+   class="hidden sm:inline-block px-6 py-2 bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-full font-bold hover:from-yellow-600 hover:to-yellow-800 transition-all">
+    Acheter
+</a>
             <button id="menuBtn"
                 class="w-11 h-11 flex flex-col justify-center items-center gap-[5px] rounded-xl glass-enhanced border border-white/10 hover:border-yellow-500/40 transition-all duration-300">
                 <span class="w-6 h-[2px] bg-white rounded-full transition-all"></span>
@@ -244,8 +245,8 @@
                     <span>Témoignages</span>
                 </a>
                 <div class="border-t border-yellow-400/30 my-1"></div>
-                <a href="#" 
-   onclick="event.preventDefault(); document.getElementById('buyNowButton').scrollIntoView({ behavior: 'smooth', block: 'center' });"
+                <a href="#"
+   onclick="event.preventDefault(); document.getElementById('stripeButton').scrollIntoView({ behavior: 'smooth', block: 'center' });"
    class="menu-item font-bold text-yellow-900 bg-yellow-300 hover:bg-yellow-400">
     <i class="fas fa-bolt text-yellow-800"></i>
     <span>Accéder au pack</span>
@@ -513,6 +514,7 @@
                     <!-- Bouton CTA -->
                     <a href="https://buy.stripe.com/fZubJ16bG3m5aip25qaAw01" 
                        target="_blank"
+                       id="stripeButton" 
                        class="block group relative mb-6">
                         <div class="absolute inset-0 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-xl blur-xl opacity-50 group-hover:opacity-80 transition-opacity"></div>
                         <div class="relative bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-8 py-5 rounded-xl font-bold text-center transform group-hover:scale-[1.02] transition-all duration-300">
@@ -566,10 +568,15 @@
 </section>
 
 <section id="contenu" class="py-20 px-6 max-w-6xl mx-auto">
-    <h2 class="text-4xl font-bold text-center mb-4 text-gradient" data-aos="fade-up">
-        <i class="fas fa-book-open mr-3"></i>
+    <h2 class="text-4xl font-bold text-center mb-6" data-aos="fade-up">
+    <div class="mb-4">
+        <i class="fas fa-book-open text-yellow-500 text-5xl animate-pulse"></i>
+    </div>
+    <span class="text-gradient relative inline-block pb-4">
         CONTENU DU PACK 7 EBOOKS
-    </h2>
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-yellow-500/20 via-yellow-500 to-yellow-500/20 rounded-full"></div>
+    </span>
+</h2>
     <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
         Découvrez les 7 ebooks qui vont transformer votre approche du business en ligne
     </p>
@@ -1819,23 +1826,6 @@ if (ebook.page3) {
         if (e.key === 'Escape') closeEbookModal();
     });
 </script>
-<!-- Tracker Analytics -->
-<script>
-    // Fonction pour tracker les visites
-    async function trackVisit() {
-        try {
-            await fetch('/track/visit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ page: window.location.pathname })
-            });
-        } catch (err) {
-            console.log('Tracking OK'); // Ignorer les erreurs
-        }
-    }
 
-    // Tracker la visite immédiatement
-    trackVisit();
-</script>
 </body>
 </html>
